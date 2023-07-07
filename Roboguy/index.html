@@ -23,7 +23,7 @@
   </head>
   <body>
     <canvas id="unity-canvas"></canvas>
-    <script src="Build/Roboguy.loader.js"></script>
+    <script src="Build/Psyche.loader.js"></script>
     <script>
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         var meta = document.createElement('meta');
@@ -33,14 +33,15 @@
       }
 
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/Roboguy.data",
-        frameworkUrl: "Build/Roboguy.framework.js",
-        codeUrl: "Build/Roboguy.wasm",
+        dataUrl: "Build.data",
+        frameworkUrl: "Build.framework.js",
+        codeUrl: "Build.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "nicoloddo",
         productName: "Roboguy",
-        productVersion: "2.0",
-        matchWebGLToCanvasSize: true, // Adjust to make WebGL canvas size match the size of its DOM element.
+        productVersion: "3.0",
+        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
       });
     </script>
   </body>
