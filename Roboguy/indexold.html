@@ -19,36 +19,10 @@
         width: 100%;
         height: 100%;
       }
-      /* Loading Bar Styles */
-      #loadingBar {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.9);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      #progressBar {
-        width: 80%;
-        height: 2em;
-        background: #444;
-      }
-      #progressBarFull {
-        height: 100%;
-        background: #fff;
-        width: 0%;
-      }
     </style>
   </head>
   <body>
     <canvas id="unity-canvas"></canvas>
-    <!-- Loading Bar Elements -->
-    <div id="loadingBar">
-      <div id="progressBar">
-        <div id="progressBarFull"></div>
-      </div>
-    </div>
     <script src="Build/Roboguy.loader.js"></script>
     <script>
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
@@ -58,10 +32,6 @@
         document.getElementsByTagName('head')[0].appendChild(meta);
       }
 
-      var loadingBar = document.querySelector("#loadingBar");
-      var progressBarFull = document.querySelector("#progressBarFull");
-      loadingBar.style.display = "block";
-
       createUnityInstance(document.querySelector("#unity-canvas"), {
         dataUrl: "Build/Roboguy.data",
         frameworkUrl: "Build/Roboguy.framework.js",
@@ -70,11 +40,8 @@
         companyName: "nicoloddo",
         productName: "Roboguy",
         productVersion: "3.0",
-        onProgress: (progress) => {
-          progressBarFull.style.width = 100 * progress + "%";
-        }
-      }).then((unityInstance) => {
-        loadingBar.style.display = "none";
+        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
       });
     </script>
   </body>
