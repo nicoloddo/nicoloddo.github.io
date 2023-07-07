@@ -23,7 +23,7 @@
   </head>
   <body>
     <canvas id="unity-canvas"></canvas>
-    <script src="Build/Psyche.loader.js"></script>
+    <script src="Build/Roboguy.loader.js"></script>
     <script>
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         var meta = document.createElement('meta');
@@ -33,9 +33,9 @@
       }
 
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build.data",
-        frameworkUrl: "Build.framework.js",
-        codeUrl: "Build.wasm",
+        dataUrl: "Build/Roboguy.data",
+        frameworkUrl: "Build/Roboguy.framework.js",
+        codeUrl: "Build/Roboguy.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "nicoloddo",
         productName: "Roboguy",
