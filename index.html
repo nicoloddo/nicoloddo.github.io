@@ -126,20 +126,25 @@
 
           // Update progress bar steps
           if (progress / max_progress >= 0.1 && step1.style.animation == '') {
-            step1.style.animation = 'growAndColor 0.5s';
+            step1.style.animation = 'growAndColor 0.5s forward';
           }
           if (progress / max_progress >= 0.3 && step2.style.animation == '') {
-            step2.style.animation = 'growAndColor 0.5s';
+            step2.style.animation = 'growAndColor 0.5s forward';
           }
           if (progress / max_progress >= 0.5 && step3.style.animation == '') {
-            step3.style.animation = 'growAndColor 0.5s';
+            step3.style.animation = 'growAndColor 0.5s forward';
           }
           if (progress / max_progress >= 0.7 && step4.style.animation == '') {
-            step4.style.animation = 'growAndColor 0.5s';
+            step4.style.animation = 'growAndColor 0.5s forward';
           }
           if (progress / max_progress >= 0.9 && step5.style.animation == '') {
-            step5.style.animation = 'growAndColor 0.5s';
+            step5.style.animation = 'growAndColor 0.5s forward';
           }
+          if (progress / max_progress >= 0.1) step1.style.filter = 'grayscale(0%)';
+          if (progress / max_progress >= 0.3) step2.style.filter = 'grayscale(0%)';
+          if (progress / max_progress >= 0.5) step3.style.filter = 'grayscale(0%)';
+          if (progress / max_progress >= 0.7) step4.style.filter = 'grayscale(0%)';
+          if (progress / max_progress >= 0.9) step5.style.filter = 'grayscale(0%)';
 
         }).then(() => {
           loadingBar.style.display = "none";
