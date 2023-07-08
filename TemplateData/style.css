@@ -29,5 +29,7 @@ body { padding: 0; margin: 0 }
 }
 #unity-progress-bar-full {
   height: 18px;
-  background: url('progress-bar-full-dark.png') no-repeat center / contain;
+  background: url('progress-bar-full-dark.png') no-repeat center / cover;
+  background-position: left;
 }
+
