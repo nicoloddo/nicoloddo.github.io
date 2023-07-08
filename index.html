@@ -64,7 +64,7 @@
         <div class="step" id="step5"></div>
         <div class="step" id="step6"></div>
         <div id="milestones">Loading...</div>
-        
+
       </div>
       
     </div>
@@ -117,7 +117,7 @@
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * (progress / max_progress) + "%";
-          console.log(progress);
+          
           var milestoneIndex = Math.floor(progress * milestones.length);
           if (milestones[milestoneIndex]) {
             milestonesElement.textContent = milestones[milestoneIndex].event;

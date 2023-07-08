@@ -42,7 +42,7 @@ body { padding: 0; margin: 0; font-family: 'Roboto', sans-serif;}
         animation: none
     }    
 #milestones {
-        position: absolute;
+        position: fixed;
         top: 500%;
         left: 10%;
         right: 10%;
