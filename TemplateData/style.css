@@ -43,7 +43,7 @@ body { padding: 0; margin: 0; font-family: 'Roboto', sans-serif;}
     }    
 #milestones {
         position: fixed;
-        top: 70px;
+        bottom: 10%;
         left: 10%;
         right: 10%;
         background-color: rgba(0, 0, 0, 0.5);
@@ -54,7 +54,7 @@ body { padding: 0; margin: 0; font-family: 'Roboto', sans-serif;}
       }
 #year {
         position: absolute;
-        top: 50px;
+        bottom: 10%;
         left: 0;
         right: 0;
         text-align: center;
