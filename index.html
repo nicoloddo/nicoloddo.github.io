@@ -24,6 +24,17 @@
         width: 100%;
         height: 100%;
       }
+      #milestones {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        padding: 20px;
+        z-index: 1;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
@@ -35,8 +46,19 @@
           <div id="unity-progress-bar-full"></div>
         </div>
       </div>
+      <div id="milestones">Loading...</div>
     </div>
     <script>
+      // Array of curriculum milestones
+      var milestones = [
+        "Born in 1998",
+        "Graduated from XYZ High School in 2016",
+        "Started XYZ University in 2016",
+        "Graduated from XYZ University in 2020",
+        "Joined ABC Company as a Software Engineer in 2021",
+        // add more milestones here...
+      ];
+
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/nicoloddo.github.io.loader.js";
       var config = {
@@ -52,6 +74,7 @@
       var canvas = document.querySelector("#unity-canvas");
       var loadingBar = document.querySelector("#unity-loading-bar");
       var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var milestonesElement = document.querySelector("#milestones");
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         var meta = document.createElement('meta');
@@ -67,6 +90,10 @@
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
+          var milestoneIndex = Math.floor(progress * milestones.length);
+          if (milestones[milestoneIndex]) {
+            milestonesElement.textContent = milestones[milestoneIndex];
+          }
         }).then(() => {
           loadingBar.style.display = "none";
         }).catch((message) => {
