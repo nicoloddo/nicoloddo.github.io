@@ -25,16 +25,28 @@
         height: 100%;
       }
       #step1 {
-        left: 0%;
-        background-image: url('https://nicoloddo.github.io/TemplateData/milestones/diploma.png')
+        left: 10%;
+        background-image: url('https://www.flaticon.com/free-icons/aviation')
       }
       #step2 {
-        left: 33%;
-        background-image: url('https://nicoloddo.github.io/TemplateData/milestones/diploma.png')
+        left: 30%;
+        background-image: url('href="https://www.flaticon.com/free-icons/hacker')
       }
       #step3 {
-        left: 66%;
-        background-image: url('https://nicoloddo.github.io/TemplateData/milestones/diploma.png')
+        left: 50%;
+        background-image: url('https://nicoloddo.github.io/TemplateData/milestones/graduation-cap.png')
+      }
+      #step4 {
+        left: 70%;
+        background-image: url('href="https://www.flaticon.com/free-icons/cyberpunk')
+      }
+      #step5 {
+        left: 90%;
+        background-image: url('href="https://www.flaticon.com/free-icons/vr-glasses.png')
+      }
+      #step6 {
+        left: 110%;
+        background-image: url('https://nicoloddo.github.io/TemplateData/milestones/graduation-cap.png')
       }
     </style>
   </head>
@@ -44,7 +56,6 @@
       <div id="unity-loading-bar" class="progress-bar">
         <div class="progress" id="progress"></div>
         <div id="year"></div>
-
 
         <div class="step" id="step1"></div>
         <div class="step" id="step2"></div>
@@ -57,11 +68,12 @@
     <script>
       // Array of curriculum milestones (put the icons in the utl steps above)
       var milestones = [
-        {year: "1998", event: "Born"},
-        {year: "2016", event: "Graduated from XYZ High School"},
-        {year: "2017", event: "Started XYZ University"},
-        {year: "2020", event: "Graduated from XYZ University"},
-        {year: "2021", event: "Joined ABC Company as a Software Engineer"},
+        {year: "2017", event: "First academic year in Aerospace Engineering"},
+        {year: "2019", event: "Italian National Cybersecurity Challenge"},
+        {year: "02/2021", event: "Bachelor Degree in Electrical, Electronics and Computer Engineering"},
+        {year: "2021", event: "Worked as Full Stack Engineer for Reach Aut"},
+        {year: "09/2021", event: "Start of studies and projects in Human Computer Interaction and AI"},
+        {year: "10/2023", event: "Master Graduation in Human Computer Interaction"},
         // add more milestones here...
       ];
 
@@ -105,7 +117,7 @@
           var milestoneIndex = Math.floor(progress * milestones.length);
           if (milestones[milestoneIndex]) {
             milestonesElement.textContent = milestones[milestoneIndex].event;
-            yearElement.textContent = "Year: " + milestones[milestoneIndex].year;
+            yearElement.textContent = "Date: " + milestones[milestoneIndex].year;
           }
 
           // Update progress bar steps
