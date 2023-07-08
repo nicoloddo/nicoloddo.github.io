@@ -35,12 +35,21 @@
         z-index: 1;
         text-align: center;
       }
+      #year {
+        position: absolute;
+        top: -30px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: white;
+      }
     </style>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas"></canvas>
       <div id="unity-loading-bar">
+        <div id="year"></div>
         <div id="unity-progress-bar-empty">
           <div id="unity-progress-bar-full"></div>
         </div>
@@ -50,11 +59,11 @@
     <script>
       // Array of curriculum milestones
       var milestones = [
-        "Born in 1998",
-        "Graduated from XYZ High School in 2016",
-        "Started XYZ University in 2016",
-        "Graduated from XYZ University in 2020",
-        "Joined ABC Company as a Software Engineer in 2021",
+        {year: "1998", event: "Born"},
+        {year: "2016", event: "Graduated from XYZ High School"},
+        {year: "2016", event: "Started XYZ University"},
+        {year: "2020", event: "Graduated from XYZ University"},
+        {year: "2021", event: "Joined ABC Company as a Software Engineer"},
         // add more milestones here...
       ];
 
@@ -74,6 +83,7 @@
       var loadingBar = document.querySelector("#unity-loading-bar");
       var progressBarFull = document.querySelector("#unity-progress-bar-full");
       var milestonesElement = document.querySelector("#milestones");
+      var yearElement = document.querySelector("#year");
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         var meta = document.createElement('meta');
@@ -91,7 +101,8 @@
           progressBarFull.style.width = 100 * progress + "%";
           var milestoneIndex = Math.floor(progress * milestones.length);
           if (milestones[milestoneIndex]) {
-            milestonesElement.textContent = milestones[milestoneIndex];
+            milestonesElement.textContent = milestones[milestoneIndex].event;
+            yearElement.textContent = milestones[milestoneIndex].year;
           }
         }).then(() => {
           loadingBar.style.display = "none";
