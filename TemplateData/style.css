@@ -11,22 +11,22 @@ body { padding: 0; margin: 0 }
 #unity-build-title { float: right; margin-right: 10px; line-height: 38px; font-family: arial; font-size: 18px }
 #unity-fullscreen-button { float: right; width: 38px; height: 38px; background: url('fullscreen-button.png') no-repeat center }
 
-#unity-loading-bar-old { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none }
-#unity-progress-bar-empty-old { width: 141px; height: 18px; margin-top: 10px; background: url('progress-bar-empty-dark.png') no-repeat center }
-#unity-progress-bar-full-old { width: 0%; height: 18px; margin-top: 10px; background: url('progress-bar-full-dark.png') no-repeat center }
+#unity-loading-bar { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none }
+#unity-progress-bar-empty { width: 141px; height: 18px; margin-top: 10px; background: url('progress-bar-empty-dark.png') no-repeat center }
+#unity-progress-bar-full { width: 0%; height: 18px; margin-top: 10px; background: url('progress-bar-full-dark.png') no-repeat center }
 
-#unity-loading-bar {
+#unity-loading-bar-new {
   position: absolute; 
   left: 15%;
   right: 15%;
   transform: translateY(-50%);
   top: 50%;
 }
-#unity-progress-bar-empty {
+#unity-progress-bar-empty-new {
   width: 100%;
   height: 18px;
   background: url('progress-bar-empty-dark.png') no-repeat center / cover;
 }
-#unity-progress-bar-full {
+#unity-progress-bar-full-new {
   height: 18px;
   background: url('progress-bar-full-dark.png') no-repeat center / cover;
