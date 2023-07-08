@@ -67,6 +67,7 @@ body { padding: 0; margin: 0; font-family: 'Roboto', sans-serif;}
     filter: grayscale(100%);
   }
   50% {
+    transform: scale(1) translateY(-50%);
     filter: grayscale(50%);
   }
   100% {
