@@ -58,14 +58,21 @@
     </div>
     <script>
       // Array of curriculum milestones
-      var milestones = [
-        {year: "1998", event: "Born"},
-        {year: "2016", event: "Graduated from XYZ High School"},
-        {year: "2016", event: "Started XYZ University"},
-        {year: "2020", event: "Graduated from XYZ University"},
-        {year: "2021", event: "Joined ABC Company as a Software Engineer"},
-        // add more milestones here...
-      ];
+      const milestones = {
+        "2000": "Born",
+        "2018": "Started University",
+        "2021": "Graduated",
+        "2022": "Got a Job",
+        "2023": "Started Portfolio"
+      };
+
+      const startYear = 2000;
+      const endYear = new Date().getFullYear();
+      let years = "";
+
+      for (let year = startYear; year <= endYear; year += 1) {
+        years += `<span>${year}</span>`;
+      }
 
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/nicoloddo.github.io.loader.js";
@@ -85,6 +92,8 @@
       var milestonesElement = document.querySelector("#milestones");
       var yearElement = document.querySelector("#year");
 
+      document.querySelector("#progress-bar-time").innerHTML = years;
+
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         var meta = document.createElement('meta');
         meta.name = 'viewport';
@@ -98,15 +107,10 @@
       script.src = loaderUrl;
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = 100 * progress + "%";
-          var milestoneIndex = Math.floor(progress * milestones.length);
-          if (milestones[milestoneIndex]) {
-            milestonesElement.textContent = milestones[milestoneIndex].event;
-            yearElement.textContent = milestones[milestoneIndex].year;
-          }
+          let progressWidth = (endYear - startYear) * progress;
+          progressBarFull.style.width = `${progressWidth}px`;
         }).then(() => {
           loadingBar.style.display = "none";
-          milestonesElement.style.display = "none";
         }).catch((message) => {
           alert(message);
         });
