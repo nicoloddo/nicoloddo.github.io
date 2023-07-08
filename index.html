@@ -35,13 +35,23 @@
         z-index: 1;
         text-align: center;
       }
+      #unity-loading-bar {
+        width: 70%; /* This makes the loading bar wider */
+        left: 15%; /* This centers the loading bar */
+      }
+      #year {
+        color: white;
+        position: absolute;
+        left: 0;
+        transform: translateX(-50%);
+      }
     </style>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas"></canvas>
       <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
+        <div id="year"></div>
         <div id="unity-progress-bar-empty">
           <div id="unity-progress-bar-full"></div>
         </div>
@@ -51,11 +61,11 @@
     <script>
       // Array of curriculum milestones
       var milestones = [
-        "Born in 1998",
-        "Graduated from XYZ High School in 2016",
-        "Started XYZ University in 2016",
-        "Graduated from XYZ University in 2020",
-        "Joined ABC Company as a Software Engineer in 2021",
+        {year: "1998", event: "Born"},
+        {year: "2016", event: "Graduated from XYZ High School"},
+        {year: "2016", event: "Started XYZ University"},
+        {year: "2020", event: "Graduated from XYZ University"},
+        {year: "2021", event: "Joined ABC Company as a Software Engineer"},
         // add more milestones here...
       ];
 
@@ -75,6 +85,7 @@
       var loadingBar = document.querySelector("#unity-loading-bar");
       var progressBarFull = document.querySelector("#unity-progress-bar-full");
       var milestonesElement = document.querySelector("#milestones");
+      var yearElement = document.querySelector("#year");
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         var meta = document.createElement('meta');
@@ -92,10 +103,12 @@
           progressBarFull.style.width = 100 * progress + "%";
           var milestoneIndex = Math.floor(progress * milestones.length);
           if (milestones[milestoneIndex]) {
-            milestonesElement.textContent = milestones[milestoneIndex];
+            milestonesElement.textContent = milestones[milestoneIndex].event;
+            yearElement.textContent = milestones[milestoneIndex].year;
           }
         }).then(() => {
           loadingBar.style.display = "none";
+          milestonesElement.style.display = "none";
         }).catch((message) => {
           alert(message);
         });
