@@ -36,7 +36,6 @@ body { padding: 0; margin: 0 }
         filter: grayscale(100%);
         top: 50%;
         transform: translateY(-50%);
-        transform: scale(1.5);
         animation: none
     }    
 #milestones {
@@ -62,7 +61,7 @@ body { padding: 0; margin: 0 }
 
 @keyframes growAndColor {
   0% {
-    transform: scale(1.5);
+    transform: scale(1);
     filter: grayscale(100%);
   }
   50% {
