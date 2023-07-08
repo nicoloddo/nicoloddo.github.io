@@ -43,58 +43,21 @@
         text-align: center;
         color: white;
       }
-      .container {
-        color: white;
-        width: 90%; /* Adjust according to your preference */
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .progress-bar {
-        width: 100%;
-      }
-      .progress-bar-time {
-        font-size: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 8px;
-      }
-      .progress-bar-timeline {
-        position: relative;
-        height: 10px;
-      }
-      .progress-bar-timeline-full {
-        position: absolute;
-        width: 100%;
-        height: 1px;
-        background-color: #979797;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-      .progress-bar-timeline-current {
-        position: absolute;
-        height: 10px;
-        background-color: #f3f3f3;
-      }
     </style>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas"></canvas>
-      <div id="unity-loading-bar" class="container">
-        <div class="progress-bar">
-          <div id="progress-bar-time" class="progress-bar-time"></div>
-          <div class="progress-bar-timeline">
-            <div class="progress-bar-timeline-full"></div>
-            <div id="unity-progress-bar-full" class="progress-bar-timeline-current"></div>
-          </div>
+      <div id="unity-loading-bar">
+        <div id="year"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
         </div>
-        <div id="milestones">Loading...</div>
       </div>
+      <div id="milestones">Loading...</div>
     </div>
     <script>
+      // Array of curriculum milestones
       var milestones = [
         {year: "1998", event: "Born"},
         {year: "2016", event: "Graduated from XYZ High School"},
@@ -120,16 +83,7 @@
       var loadingBar = document.querySelector("#unity-loading-bar");
       var progressBarFull = document.querySelector("#unity-progress-bar-full");
       var milestonesElement = document.querySelector("#milestones");
-
-      var startYear = 1998;
-      var endYear = new Date().getFullYear();
-      var years = "";
-
-      for (let year = startYear; year <= endYear; year += 1) {
-        years += `<span>${year}</span>`;
-      }
-
-      document.querySelector("#progress-bar-time").innerHTML = years;
+      var yearElement = document.querySelector("#year");
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         var meta = document.createElement('meta');
@@ -144,11 +98,11 @@
       script.src = loaderUrl;
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
-          var progressWidth = (endYear - startYear) * progress;
-          progressBarFull.style.width = `${progressWidth}px`;
+          progressBarFull.style.width = 100 * progress + "%";
           var milestoneIndex = Math.floor(progress * milestones.length);
           if (milestones[milestoneIndex]) {
             milestonesElement.textContent = milestones[milestoneIndex].event;
+            yearElement.textContent = milestones[milestoneIndex].year;
           }
         }).then(() => {
           loadingBar.style.display = "none";
