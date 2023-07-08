@@ -64,15 +64,15 @@ body { padding: 0; margin: 0; font-family: 'Roboto', sans-serif;}
 
 @keyframes growAndColor {
   0% {
-    transform: scale(1);
+    transform: translateY(-50%) scale(1);
     filter: grayscale(100%);
   }
   50% {
-    transform: scale(1);
+    transform: translateY(-50%) scale(1);
     filter: grayscale(50%);
   }
   100% {
-    transform: scale(2);
+    transform: translateY(-50%) scale(2);
     filter: grayscale(0%);
   }
 }
