@@ -63,10 +63,9 @@
         <div class="step" id="step4"></div>
         <div class="step" id="step5"></div>
         <div class="step" id="step6"></div>
-      
-      </div>
+        <div id="milestones">Loading...</div>
 
-      <div id="milestones">Loading...</div>
+      </div>
     </div>
     <script>
       // Array of curriculum milestones (put the icons in the utl steps above)
@@ -126,19 +125,19 @@
 
           // Update progress bar steps
           if (progress / max_progress >= 0.1 && step1.style.animation == '') {
-            step1.style.animation = 'growAndColor 0.5s forward';
+            step1.style.animation = 'growAndColor 0.5s forwards';
           }
           if (progress / max_progress >= 0.3 && step2.style.animation == '') {
-            step2.style.animation = 'growAndColor 0.5s forward';
+            step2.style.animation = 'growAndColor 0.5s forwards';
           }
           if (progress / max_progress >= 0.5 && step3.style.animation == '') {
-            step3.style.animation = 'growAndColor 0.5s forward';
+            step3.style.animation = 'growAndColor 0.5s forwards';
           }
           if (progress / max_progress >= 0.7 && step4.style.animation == '') {
-            step4.style.animation = 'growAndColor 0.5s forward';
+            step4.style.animation = 'growAndColor 0.5s forwards';
           }
           if (progress / max_progress >= 0.9 && step5.style.animation == '') {
-            step5.style.animation = 'growAndColor 0.5s forward';
+            step5.style.animation = 'growAndColor 0.5s forwards';
           }
           if (progress / max_progress >= 0.1) step1.style.filter = 'grayscale(0%)';
           if (progress / max_progress >= 0.3) step2.style.filter = 'grayscale(0%)';
