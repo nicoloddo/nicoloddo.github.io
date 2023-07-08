@@ -26,12 +26,15 @@
       }
       #step1 {
         left: 0%;
+        background-image: url('https://nicoloddo.github.io/TemplateData/milestones/diploma.png')
       }
       #step2 {
         left: 33%;
+        background-image: url('https://nicoloddo.github.io/TemplateData/milestones/diploma.png')
       }
       #step3 {
         left: 66%;
+        background-image: url('https://nicoloddo.github.io/TemplateData/milestones/diploma.png')
       }
     </style>
   </head>
@@ -43,9 +46,9 @@
         <div class="progress" id="progress"></div>
 
 
-        <div class="step" id="step1" style="background: url('https://vignette.wikia.nocookie.net/pkmnshuffle/images/9/9d/Pichu.png/revision/latest?cb=20170407222851');"></div>
-        <div class="step" id="step2" style="background: url('https://vignette.wikia.nocookie.net/pkmnshuffle/images/9/97/Pikachu_%28Smiling%29.png/revision/latest?cb=20170410234508');"></div>
-        <div class="step" id="step3" style="background: url('https://orig00.deviantart.net/493a/f/2017/095/5/4/raichu_icon_by_pokemonshuffle_icons-db4ryym.png');"></div>
+        <div class="step" id="step1"></div>
+        <div class="step" id="step2"></div>
+        <div class="step" id="step3"></div>
       
       </div>
 
@@ -98,6 +101,7 @@
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
+          console.log(progress);
           var milestoneIndex = Math.floor(progress * milestones.length);
           if (milestones[milestoneIndex]) {
             milestonesElement.textContent = milestones[milestoneIndex].event;
