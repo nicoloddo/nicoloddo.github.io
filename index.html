@@ -26,7 +26,7 @@
       }
       #step1 {
         left: 10%;
-        background-image: url('https://nicoloddo.github.io/TemplateData/milestones/aviation.png')
+        background-image: url('https://nicoloddo.github.io/TemplateData/milestones/aircraft.png')
       }
       #step2 {
         left: 30%;
@@ -60,6 +60,9 @@
         <div class="step" id="step1"></div>
         <div class="step" id="step2"></div>
         <div class="step" id="step3"></div>
+        <div class="step" id="step4"></div>
+        <div class="step" id="step5"></div>
+        <div class="step" id="step6"></div>
       
       </div>
 
@@ -122,11 +125,21 @@
           }
 
           // Update progress bar steps
-          if (progress / max_progress >= 0.1) step1.style.filter = 'grayscale(0%)';
-          if (progress / max_progress >= 0.3) step2.style.filter = 'grayscale(0%)';
-          if (progress / max_progress >= 0.5) step3.style.filter = 'grayscale(0%)';
-          if (progress / max_progress >= 0.7) step4.style.filter = 'grayscale(0%)';
-          if (progress / max_progress >= 0.9) step5.style.filter = 'grayscale(0%)';
+          if (progress / max_progress >= 0.1 && step1.style.animation == '') {
+            step1.style.animation = 'growAndColor 0.5s';
+          }
+          if (progress / max_progress >= 0.3 && step2.style.animation == '') {
+            step2.style.animation = 'growAndColor 0.5s';
+          }
+          if (progress / max_progress >= 0.5 && step3.style.animation == '') {
+            step3.style.animation = 'growAndColor 0.5s';
+          }
+          if (progress / max_progress >= 0.7 && step4.style.animation == '') {
+            step4.style.animation = 'growAndColor 0.5s';
+          }
+          if (progress / max_progress >= 0.9 && step5.style.animation == '') {
+            step5.style.animation = 'growAndColor 0.5s';
+          }
 
         }).then(() => {
           loadingBar.style.display = "none";
