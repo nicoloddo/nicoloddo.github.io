@@ -66,6 +66,21 @@
         {year: "2021", event: "Joined ABC Company as a Software Engineer"},
         // add more milestones here...
       ];
+      const milestones = {
+        "2000": "Born",
+        "2018": "Started University",
+        "2021": "Graduated",
+        "2022": "Got a Job",
+        "2023": "Started Portfolio"
+      };
+
+      const startYear = 2000;
+      const endYear = new Date().getFullYear();
+      let years = "";
+
+      for (let year = startYear; year <= endYear; year += 1) {
+        years += `<span>${year}</span>`;
+      }
 
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/nicoloddo.github.io.loader.js";
@@ -78,12 +93,13 @@
         productName: "Home",
         productVersion: "0.1",
       };
-
       var canvas = document.querySelector("#unity-canvas");
       var loadingBar = document.querySelector("#unity-loading-bar");
       var progressBarFull = document.querySelector("#unity-progress-bar-full");
       var milestonesElement = document.querySelector("#milestones");
       var yearElement = document.querySelector("#year");
+
+      document.querySelector("#progress-bar-time").innerHTML = years;
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         var meta = document.createElement('meta');
@@ -91,9 +107,7 @@
         meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
         document.getElementsByTagName('head')[0].appendChild(meta);
       }
-
       loadingBar.style.display = "block";
-
       var script = document.createElement("script");
       script.src = loaderUrl;
       script.onload = () => {
@@ -104,6 +118,8 @@
             milestonesElement.textContent = milestones[milestoneIndex].event;
             yearElement.textContent = milestones[milestoneIndex].year;
           }
+          let progressWidth = (endYear - startYear) * progress;
+          progressBarFull.style.width = `${progressWidth}px`;
         }).then(() => {
           loadingBar.style.display = "none";
           milestonesElement.style.display = "none";
