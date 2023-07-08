@@ -45,7 +45,7 @@
         background-image: url('https://nicoloddo.github.io/TemplateData/milestones/glasses.png')
       }
       #step6 {
-        left: 100%;
+        left: 99%;
         background-image: url('https://nicoloddo.github.io/TemplateData/milestones/graduation-cap.png')
       }
     </style>
@@ -109,10 +109,11 @@
       loadingBar.style.display = "block";
 
       var script = document.createElement("script");
+      var max_progress = 0.8973;
       script.src = loaderUrl;
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = 100 * (progress  / 0.8973) + "%";
+          progressBarFull.style.width = 100 * (progress / max_progress) + "%";
           console.log(progress);
           var milestoneIndex = Math.floor(progress * milestones.length);
           if (milestones[milestoneIndex]) {
@@ -121,9 +122,11 @@
           }
 
           // Update progress bar steps
-          if (progress >= 0.33) step1.style.filter = 'grayscale(0%)';
-          if (progress >= 0.66) step2.style.filter = 'grayscale(0%)';
-          if (progress >= 1) step3.style.filter = 'grayscale(0%)';
+          if (progress / max_progress >= 0.1) step1.style.filter = 'grayscale(0%)';
+          if (progress / max_progress >= 0.3) step2.style.filter = 'grayscale(0%)';
+          if (progress / max_progress >= 0.5) step3.style.filter = 'grayscale(0%)';
+          if (progress / max_progress >= 0.7) step4.style.filter = 'grayscale(0%)';
+          if (progress / max_progress >= 0.9) step5.style.filter = 'grayscale(0%)';
 
         }).then(() => {
           loadingBar.style.display = "none";
