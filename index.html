@@ -100,7 +100,7 @@
       script.src = loaderUrl;
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = 100 * (progress  / 0.9) + "%";
+          progressBarFull.style.width = 100 * (progress  / 0.89) + "%";
           var milestoneIndex = Math.floor(progress * milestones.length);
           if (milestones[milestoneIndex]) {
             milestonesElement.textContent = milestones[milestoneIndex].event;
