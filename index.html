@@ -69,39 +69,7 @@
       </div>
       
     </div>
-    <script>
-      function checkScreenOrientation() {
-        const isPortrait = window.innerHeight > window.innerWidth;
-        const root = document.documentElement;
-        
-        if (isPortrait) {
-          root.style.transform = 'rotate(90deg) translateY(-100vh)';
-          root.style.transformOrigin = 'top left';
-          root.style.width = '100vh';
-          root.style.height = '100vw';
-          root.style.overflow = 'hidden';
-          root.style.position = 'fixed';
-          root.style.top = '0';
-          root.style.left = '0';
-        } else {
-          root.style.transform = '';
-          root.style.transformOrigin = '';
-          root.style.width = '';
-          root.style.height = '';
-          root.style.overflow = '';
-          root.style.position = '';
-          root.style.top = '';
-          root.style.left = '';
-        }
-      }
-
-      // Run the function when the script loads
-      checkScreenOrientation();
-
-      // Run the function every time the window is resized
-      window.onresize = checkScreenOrientation;
-    </script>
-
+    <script src="pleaserotate.js"></script>
     <script>
       // Array of curriculum milestones (put the icons in the utl steps above)
       var milestones = [
