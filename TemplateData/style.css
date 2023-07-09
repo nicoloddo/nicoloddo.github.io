@@ -1,4 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@media only screen and (orientation: portrait) {
+  body {
+    transform: rotate(90deg);
+    height: 100vh;
+    overflow-x: hidden;
+    position: absolute;
+    top: -100%;
+    left: 0;
+  }
+}
+
 
 body { padding: 0; margin: 0; font-family: 'Roboto', sans-serif;}
 #unity-container { position: absolute }
@@ -75,17 +86,5 @@ body { padding: 0; margin: 0; font-family: 'Roboto', sans-serif;}
     transform: translateY(-50%) scale(2);
     filter: grayscale(0%);
   }
-}
-
-body.mobile {
-  transform-origin: top left;
-  transform: rotate(90deg) translateX(-100vh);
-  position: fixed;
-  width: 100vh;
-  height: 100vw;
-  overflow-x: hidden;
-  overflow-y: auto;
-  /* The following line is to handle iOS Safari */
-  -webkit-overflow-scrolling: touch;
 }
 
