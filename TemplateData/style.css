@@ -1,16 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-@media only screen and (orientation: portrait) {
-  body {
-    transform-origin: top left;
-    transform: rotate(90deg) translateY(-100%);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vh;
-    height: 100vw;
-    overflow: hidden;
-  }
-}
+
 
 
 
