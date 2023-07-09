@@ -69,39 +69,7 @@
       </div>
       
     </div>
-    <script>
-      // force landscape mode
-      function checkScreenOrientation() {
-        const isPortrait = window.innerHeight > window.innerWidth;
-        const root = document.documentElement;
-        
-        if (isPortrait) {
-          root.style.width = window.innerHeight + 'px';
-          root.style.height = window.innerWidth + 'px';
-          root.style.transformOrigin = '0 0';
-          root.style.transform = 'rotate(90deg) translate(0, -100%)';
-          root.style.overflowX = 'hidden';
-          root.style.position = 'absolute';
-          root.style.top = 0;
-          root.style.left = 0;
-        } else {
-          root.style.width = '';
-          root.style.height = '';
-          root.style.transform = '';
-          root.style.overflowX = '';
-          root.style.position = '';
-          root.style.top = '';
-          root.style.left = '';
-        }
-      }
-
-      // Run the function when the script loads
-      checkScreenOrientation();
-
-      // Run the function every time the window is resized
-      window.addEventListener('resize', checkScreenOrientation);
-    </script>
-
+    <script src="pleaserotate.min.js"></script>
     <script>
       // Array of curriculum milestones (put the icons in the utl steps above)
       var milestones = [
