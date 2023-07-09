@@ -69,18 +69,6 @@
       </div>
       
     </div>
-    <script>
-      if (window.innerHeight > window.innerWidth){
-          var viewport = document.querySelector("meta[name=viewport]");
-          viewport.setAttribute('content', 'width=' + window.innerHeight + ', initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
-          document.body.style.transform = "rotate(90deg)";
-          document.body.style.transformOrigin = "bottom left";
-          document.body.style.width = "100vh";
-          document.body.style.position = "absolute";
-          document.body.style.top = "100vh";
-          document.body.style.left = "0";
-      }
-    </script>
 
     <script>
       // Array of curriculum milestones (put the icons in the utl steps above)
@@ -124,6 +112,21 @@
 
         //document.body.classList.add("mobile");
         console.log("We are on mobile.")
+      }
+      if (window.innerHeight > window.innerWidth){
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        
+        var viewport = document.querySelector("meta[name=viewport]");
+        viewport.setAttribute('content', 'width=' + window.innerHeight + ', initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+        document.body.style.transform = "rotate(90deg)";
+        document.body.style.transformOrigin = "bottom left";
+        document.body.style.width = "100vh";
+        document.body.style.position = "absolute";
+        document.body.style.top = "100vh";
+        document.body.style.left = "0";
       }
 
       loadingBar.style.display = "block";
