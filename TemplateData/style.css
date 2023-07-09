@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-
-
-
-
 body { padding: 0; margin: 0; font-family: 'Roboto', sans-serif;}
 #unity-container { position: absolute }
 #unity-container.unity-desktop { left: 50%; top: 50%; transform: translate(-50%, -50%) }
@@ -76,7 +72,7 @@ body { padding: 0; margin: 0; font-family: 'Roboto', sans-serif;}
     filter: grayscale(50%);
   }
   100% {
-    transform: translateY(-50%) scale(2);
+    transform: translateY(-50%) scale(1.5);
     filter: grayscale(0%);
   }
 }
