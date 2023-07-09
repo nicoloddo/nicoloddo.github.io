@@ -78,10 +78,14 @@ body { padding: 0; margin: 0; font-family: 'Roboto', sans-serif;}
 }
 
 body.mobile {
-    transform: rotate(90deg);
-    height: 100vh;
-    overflow-x: hidden;
-    position: absolute;
-    top: -100%;
-    left: 0;
+  transform-origin: top left;
+  transform: rotate(90deg) translateX(-100vh);
+  position: fixed;
+  width: 100vh;
+  height: 100vw;
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* The following line is to handle iOS Safari */
+  -webkit-overflow-scrolling: touch;
 }
+
