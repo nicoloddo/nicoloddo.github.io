@@ -16,7 +16,7 @@
         align-items: center;
         background: #231F20;
       }
-        h1 {
+      #title {
         font-size: 1.5em;
         color: #ffffff;
         text-align: center;
@@ -58,7 +58,7 @@
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
-      <h1>Welcome to my site! My name is Nicolò. While the interface loads, here is a bit of backstory:</h1>
+      <h1 id="title">Welcome to my site! My name is Nicolò. While the interface loads, here is a bit of backstory:</h1>
       <canvas id="unity-canvas"></canvas>
       <div id="unity-loading-bar" class="progress-bar">
         <div class="progress" id="progress"></div>
@@ -160,6 +160,7 @@
         }).then(() => {
           loadingBar.style.display = "none";
           milestonesElement.style.display = "none";
+          document.querySelector("#title").style.display = "none";
         }).catch((message) => {
           alert(message);
         });
