@@ -116,20 +116,6 @@
         document.getElementsByTagName('head')[0].appendChild(meta);
 
         console.log("We are on mobile.")
-        // If we are on mobile we do cache busting to achieve good compatibility with pleaserotate.js
-        // This has to be removed when we will properly do the portfolio
-        let timestamp = new Date().getTime(); // Get the current time
-
-        var config = {
-          dataUrl: "Build/YourUnityApp.data?ts=" + timestamp,
-          frameworkUrl: "Build/YourUnityApp.framework.js?ts=" + timestamp,
-          codeUrl: "Build/YourUnityApp.wasm?ts=" + timestamp,
-          streamingAssetsUrl: "StreamingAssets",
-          companyName: "nicoloddo",
-          productName: "Home",
-          productVersion: "0.1",
-        };
-        // end of cache busting
       }
 
       loadingBar.style.display = "block";
