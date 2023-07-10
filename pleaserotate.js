@@ -6,7 +6,11 @@
 
     var options = {
         startOnPageLoad: true,
-        onHide: function(){},
+        onHide: function(){
+            var orientationCheckedEvent = new CustomEvent('orientationChecked');
+            document.dispatchEvent(orientationCheckedEvent);
+            PleaseRotate.stop();
+        },
         onShow: function(){},
         forcePortrait: false,
         message: "This site is optimized for desktops. \nPlease Rotate Your Device",
