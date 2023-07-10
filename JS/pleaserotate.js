@@ -9,7 +9,6 @@
         onHide: function(){
             var orientationCheckedEvent = new CustomEvent('orientationChecked');
             document.dispatchEvent(orientationCheckedEvent);
-            PleaseRotate.stop();
         },
         onShow: function(){},
         forcePortrait: false,
