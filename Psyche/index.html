@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Sorry, this is not released yet.</title>
+    <title>Psyche</title>
     <link rel="icon" type="image/png" href="../Logos/icon.png">
     <style>
       body, html {
@@ -23,6 +23,7 @@
   </head>
   <body>
     <canvas id="unity-canvas"></canvas>
+    <script src="../JS/pleaserotate.min.js"></script>
     <script src="Build/Psyche.loader.js"></script>
     <script>
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
@@ -31,7 +32,7 @@
         meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
         document.getElementsByTagName('head')[0].appendChild(meta);
       }
-/*
+
       createUnityInstance(document.querySelector("#unity-canvas"), {
         dataUrl: "Build/Psyche.data",
         frameworkUrl: "Build/Psyche.framework.js",
@@ -39,10 +40,10 @@
         streamingAssetsUrl: "StreamingAssets",
         companyName: "nicoloddo",
         productName: "Psyche",
-        productVersion: "1.0",
-        matchWebGLToCanvasSize: true, // Adjust to make WebGL canvas size match the size of its DOM element.
+        productVersion: "3.0",
+        //matchWebGLToCanvasSize: true, // Adjust to make WebGL canvas size match the size of its DOM element.
       });
-*/
+
     </script>
   </body>
 </html>
