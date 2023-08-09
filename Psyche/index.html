@@ -28,9 +28,11 @@
 
       window.recordButtonClick = async function() {
           const eventData = {
-            item_id: 'terminateAI_choice',
-            item_name: "Terminate AI",
-            item_category: "UI Controls"
+              items: [{
+                  item_id: 'terminateAI_choice',
+                  item_name: "Terminate AI",
+                  item_category: "UI Controls"
+              }]
           };
           logEvent(window.analytics, 'select_item', eventData);
       }
