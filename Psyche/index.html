@@ -24,10 +24,10 @@
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const analytics = getAnalytics(app);
-      db = getFirestore(app);
+      window.db = getFirestore(app);
 
       window.recordButtonClick = async function() {
-          await addDoc(collection(db, "AIterminated"), {
+          await addDoc(collection(window.db, "AIterminated"), {
             clickTime: new Date().toISOString(),
             control: "Ciaooo"
           });
