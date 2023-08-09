@@ -27,9 +27,12 @@
       window.db = getFirestore(app);
 
       window.recordButtonClick = async function() {
-          logEvent(window.analytics, 'button_click', {
-            button_choice: "Terminate AI"
-          });
+          const eventData = {
+            item_id: 'terminateAI_choice',
+            item_name: "Terminate AI",
+            item_category: "UI Controls"
+          };
+          logEvent(window.analytics, 'select_item', eventData);
       }
 
     </script>
