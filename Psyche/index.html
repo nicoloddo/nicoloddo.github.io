@@ -4,7 +4,7 @@
     <script type="module">
       // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-      import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
       import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
 
       // TODO: Add SDKs for Firebase products that you want to use
@@ -23,20 +23,15 @@
       };
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
-      localStorage.setItem('debug.firebase.analytics', 'true');
-
-      window.analytics = getAnalytics(app);
+      const analytics = getAnalytics(app);
       window.db = getFirestore(app);
 
       window.recordButtonClick = async function() {
-          const eventData = {
-              items: [{
-                  item_id: 'terminateAI_choice',
-                  item_name: "Terminate AI",
-                  item_category: "UI Controls"
-              }]
-          };
-          logEvent(window.analytics, 'select_item', eventData);
+          const docRef = await addDoc(collection(window.db, "AIterminated"), {
+            clickTime: new Date().toISOString(),
+            control: "Ciaooo"
+          });
+          console.log("Document written with ID: ", docRef.id);
       }
 
     </script>
