@@ -23,6 +23,8 @@
       };
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
+      localStorage.setItem('debug.firebase.analytics', 'true');
+
       window.analytics = getAnalytics(app);
       window.db = getFirestore(app);
 
