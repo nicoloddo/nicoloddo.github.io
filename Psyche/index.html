@@ -28,9 +28,9 @@
 
     </script>
     <script>
-      function recordButtonClick() {
+      window.recordButtonClick = async function() {
           window.db.collection("AIterminated").add({
-              clickTime: new Date().toISOString()
+              clickTime: new Date().toISOString(),
               control: "Ciaooo"
           })
           .then((docRef) => {
