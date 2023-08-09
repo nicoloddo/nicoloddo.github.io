@@ -29,7 +29,6 @@
 
       function recordButtonClick() {
           // Using Firebase Firestore as an example
-          var db = firebase.firestore();
 
           db.collection("AIterminated").add({
               clickTime: new Date().toISOString()
