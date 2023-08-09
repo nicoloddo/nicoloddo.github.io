@@ -27,7 +27,7 @@
       const analytics = getAnalytics(app);
       const db = getFirestore(app);
 
-      function recordButtonClick() {
+      window.recordButtonClick() = async function() {
           // Using Firebase Firestore as an example
 
           db.collection("AIterminated").add({
