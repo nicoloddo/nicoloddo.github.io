@@ -27,7 +27,7 @@
       window.db = getFirestore(app);
 
       window.recordButtonClick = async function() {
-          await addDoc(collection(window.db, "AIterminated"), {
+          const docRef = await addDoc(collection(window.db, "AIterminated"), {
             clickTime: new Date().toISOString(),
             control: "Ciaooo"
           });
