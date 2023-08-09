@@ -21,16 +21,15 @@
         appId: "1:575495631634:web:65522b732e5954a1ea39cb",
         measurementId: "G-P02DQ2RDHV"
       };
-
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const analytics = getAnalytics(app);
-      const db = getFirestore(app);
+      window.db = getFirestore(app);
 
-      window.recordButtonClick = async function() {
-          // Using Firebase Firestore as an example
-
-          db.collection("AIterminated").add({
+    </script>
+    <script>
+      function recordButtonClick() {
+          window.db.collection("AIterminated").add({
               clickTime: new Date().toISOString()
               control: "Ciaooo"
           })
