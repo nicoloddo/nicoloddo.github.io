@@ -2,83 +2,88 @@
 <html lang="en-us">
   <head>
     <script>
-        const API_KEY = '$2b$10$iZ3gwAebcDbFUk0H7qhjuuNd31/ZUd6rzgHUgGEdAPEshm0MSFVNq';
-        const API_URL = 'https://api.jsonbin.io/v3/b';
-        const headers = {
-            'Content-Type': 'application/json',
-            'X-Master-Key': API_KEY
-        };
+      const API_KEY = '$2b$10$iZ3gwAebcDbFUk0H7qhjuuNd31/ZUd6rzgHUgGEdAPEshm0MSFVNq';
+      const API_URL = 'https://api.jsonbin.io/v3/b';
+      const headers = {
+          'Content-Type': 'application/json',
+          'X-Master-Key': API_KEY
+      };
 
-        // Function to create a new BIN for a user
-        async function createNewBinForUser(userData) {
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify(userData)
-            });
-
-            const result = await response.json();
-            localStorage.setItem('userBinId', result.metadata.id);
-            console.log("Stored userBinId: ", localStorage.getItem('userBinId'));
-            console.log("New BIN created with ID: ", result.metadata.id);
-            return result.record;
-        }
-
-        // Function to get a user's BIN
-        async function getUserBin(binId) {
-            const response = await fetch(`${API_URL}/${binId}`, {
-                method: 'GET',
-                headers: headers
-            });
-            return await response.json();
-        }
-
-        // Function to update a user's BIN with new data
-        async function updateUserBin(binId, newData) {
-            // First, retrieve the current data from the bin
-            const currentData = await getUserBin(binId);
-
-            // Append the new data to the existing data
-            // Assuming currentData.record is an array
-            currentData.record.push(newData);
-
-            // Now, send the updated (combined) data back to the server
-            const response = await fetch(`${API_URL}/${binId}`, {
-                method: 'PUT',
-                headers: headers,
-                body: JSON.stringify(currentData.record)
-            });
-
-            const result = await response.json();
-            console.log("Updated BIN with ID: ", binId);
-            return result.record;
-        }
-
-        window.AIterminated = async function() {
-            const binId = localStorage.getItem('userBinId');
-            const data = {
-                clickTime: new Date().toISOString(),
-                type: "AIterminated",
-                control: "Ciaooo"
-            };
-        
-            await updateUserBin(binId, data);
-        }
-        
-        // On page load, create a new BIN for new users
-        window.addEventListener('load', (event) => {
-            console.log("Page loaded. Checking for userBinId...");
-            
-            const userBinId = localStorage.getItem('userBinId');
-            console.log("Retrieved userBinId: ", userBinId);
-
-            if (!userBinId || userBinId === 'null' || userBinId === 'undefined') {
-                console.log("No userBinId found. Creating new bin for user...");
-                
-                const initialData = [{ status: 'New user created' }];
-                createNewBinForUser(initialData);
-            }
+      // Function to create a new BIN for a user
+      async function createNewBinForUser(userData) {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(userData)
         });
+
+        const result = await response.json();
+        localStorage.setItem('userBinId', result.metadata.id);
+        console.log("Stored userBinId: ", localStorage.getItem('userBinId'));
+        console.log("New BIN created with ID: ", result.metadata.id);
+        return result.record;
+      }
+
+      // Function to get a user's BIN
+      async function getUserBin(binId) {
+        const response = await fetch(`${API_URL}/${binId}`, {
+            method: 'GET',
+            headers: headers
+        });
+        return await response.json();
+      }
+
+      // Function to update a user's BIN with new data
+      async function updateUserBin(binId, newData) {
+        // First, retrieve the current data from the bin
+        const currentData = await getUserBin(binId);
+
+        // Append the new data to the existing data
+        // Assuming currentData.record is an array
+        currentData.record.push(newData);
+
+        // Now, send the updated (combined) data back to the server
+        const response = await fetch(`${API_URL}/${binId}`, {
+            method: 'PUT',
+            headers: headers,
+            body: JSON.stringify(currentData.record)
+        });
+
+        const result = await response.json();
+        console.log("Updated BIN with ID: ", binId);
+        return result.record;
+      }
+      
+      // On page load, create a new BIN for new users
+      window.addEventListener('load', (event) => {
+          console.log("Page loaded. Checking for userBinId...");
+          
+          const userBinId = localStorage.getItem('userBinId');
+          console.log("Retrieved userBinId: ", userBinId);
+
+          if (!userBinId || userBinId === 'null' || userBinId === 'undefined') {
+              console.log("No userBinId found. Creating new bin for user...");
+              
+              const initialData = [
+              { 
+                time: new Date().toISOString(),
+                type: 'New user created', 
+              }];
+              createNewBinForUser(initialData);
+          }
+      });
+
+      window.AIterminated = async function() {
+        const binId = localStorage.getItem('userBinId');
+        const data = {
+            time: new Date().toISOString(),
+            type: "AIterminated",
+        };
+    
+        await updateUserBin(binId, data);
+      }
+
+      
 
     </script>
 
