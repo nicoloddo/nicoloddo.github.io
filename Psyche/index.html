@@ -55,7 +55,7 @@
             const userBinId = localStorage.getItem('userBinId');
             console.log("Retrieved userBinId: ", userBinId);
 
-            if (!userBindId || userBinId === 'null' || userBinId === 'undefined') {
+            if (!userBinId || userBinId === 'null' || userBinId === 'undefined') {
                 console.log("No userBinId found. Creating new bin for user...");
                 
                 const initialData = { status: 'New user created' };
