@@ -34,16 +34,19 @@
         }
 
         // Function to update a user's BIN with new data
-        async function updateUserBin(binId, updatedData) {
+        async function updateUserBin(binId, newData) {
+            // First, retrieve the current data from the bin
             const currentData = await getUserBin(binId);
+
             // Append the new data to the existing data
             // Assuming currentData.record is an array
             currentData.record.push(newData);
 
+            // Now, send the updated (combined) data back to the server
             const response = await fetch(`${API_URL}/${binId}`, {
                 method: 'PUT',
                 headers: headers,
-                body: JSON.stringify(updatedData)
+                body: JSON.stringify(currentData.record)
             });
 
             const result = await response.json();
