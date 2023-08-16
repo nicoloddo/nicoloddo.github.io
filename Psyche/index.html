@@ -93,11 +93,21 @@
         await updateUserBin(binId, data);
       }
 
-      window.ProgressBarExpired = async function() {
+      window.ChoiceTimeStarted = async function() {
         const binId = localStorage.getItem('userBinId');
         const data = {
             time: new Date().toISOString(),
-            action: "ProgressBarExpired",
+            action: "ChoiceTimeStarted",
+        };
+    
+        await updateUserBin(binId, data);
+      }
+
+      window.ChoiceTimeExpired = async function() {
+        const binId = localStorage.getItem('userBinId');
+        const data = {
+            time: new Date().toISOString(),
+            action: "ChoiceTimeExpired",
         };
     
         await updateUserBin(binId, data);
@@ -148,7 +158,7 @@
         streamingAssetsUrl: "StreamingAssets",
         companyName: "nicoloddo",
         productName: "Psyche",
-        productVersion: "6.0",
+        productVersion: "7.0",
         //matchWebGLToCanvasSize: true, // Adjust to make WebGL canvas size match the size of its DOM element.
       });
 
