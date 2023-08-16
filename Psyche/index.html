@@ -24,8 +24,22 @@
             return result.record;
         }
 
+        // Function to get a user's BIN
+        async function getUserBin(binId) {
+            const response = await fetch(`${API_URL}/${binId}`, {
+                method: 'GET',
+                headers: headers
+            });
+            return await response.json();
+        }
+
         // Function to update a user's BIN with new data
         async function updateUserBin(binId, updatedData) {
+            const currentData = await getUserBin(binId);
+            // Append the new data to the existing data
+            // Assuming currentData.record is an array
+            currentData.record.push(newData);
+
             const response = await fetch(`${API_URL}/${binId}`, {
                 method: 'PUT',
                 headers: headers,
