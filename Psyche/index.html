@@ -67,7 +67,7 @@
               const initialData = [
               { 
                 time: new Date().toISOString(),
-                type: 'New user created', 
+                action: 'New user created', 
               }];
               createNewBinForUser(initialData);
           }
@@ -77,7 +77,27 @@
         const binId = localStorage.getItem('userBinId');
         const data = {
             time: new Date().toISOString(),
-            type: "AIterminated",
+            action: "AIterminated",
+        };
+    
+        await updateUserBin(binId, data);
+      }
+
+      window.AIcontinue = async function() {
+        const binId = localStorage.getItem('userBinId');
+        const data = {
+            time: new Date().toISOString(),
+            action: "AIcontinue",
+        };
+    
+        await updateUserBin(binId, data);
+      }
+
+      window.ProgressBarExpired = async function() {
+        const binId = localStorage.getItem('userBinId');
+        const data = {
+            time: new Date().toISOString(),
+            action: "ProgressBarExpired",
         };
     
         await updateUserBin(binId, data);
