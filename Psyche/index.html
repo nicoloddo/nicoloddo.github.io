@@ -18,9 +18,9 @@
             });
 
             const result = await response.json();
-            localStorage.setItem('userBinId', result.record.id);
+            localStorage.setItem('userBinId', result.metadata.id);
             console.log("Stored userBinId: ", localStorage.getItem('userBinId'));
-            console.log("New BIN created with ID: ", result.record.id);
+            console.log("New BIN created with ID: ", result.metadata.id);
             return result.record;
         }
 
