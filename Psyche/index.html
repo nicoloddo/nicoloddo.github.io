@@ -172,9 +172,9 @@
         processUpdateQueue();
       }
 
-      window.FinalData = async function(jsonData) {
-        console.log("Received from Unity:", jsonData);
-        var data = JSON.parse(jsonData);
+      window.FinalData = async function(data) {
+        console.log("Received from Unity:", data);
+        //var data = JSON.parse(jsonData);
 
         const binId = localStorage.getItem('userBinId');
         // First, retrieve the current data from the bin
