@@ -39,8 +39,8 @@
         const currentData = await getUserBin(binId);
 
         // Append the new data to the existing data
-        // Assuming currentData.record is an array
-        currentData.record.push(newData);
+        // Assuming currentData.record.LiveData is an array
+        currentData.record.LiveData.push(newData);
 
         // Now, send the updated (combined) data back to the server
         const response = await fetch(`${API_URL}/${binId}`, {
@@ -64,11 +64,11 @@
           if (!userBinId || userBinId === 'null' || userBinId === 'undefined') {
               console.log("No userBinId found. Creating new bin for user...");
               
-              const initialData = [
+              const initialData = {LiveData: [
               { 
                 time: new Date().toISOString(),
                 action: 'New user created', 
-              }];
+              }]};
               createNewBinForUser(initialData);
           }
       });
@@ -131,6 +131,28 @@
         };
     
         await updateUserBin(binId, data);
+      }
+
+      window.FinalData = async function(jsondata) {
+        var data = JSON.parse(jsonData);
+    
+        // First, retrieve the current data from the bin
+        const currentData = await getUserBin(binId);
+        
+        // Add the new data as a field named 'Data' on the same level as 'LiveData'
+        // 'newData' is assigned to 'currentData.record.Data'
+        currentData.record.Data = data;
+
+        // Now, send the updated (combined) data back to the server
+        const response = await fetch(`${API_URL}/${binId}`, {
+            method: 'PUT',
+            headers: headers,
+            body: JSON.stringify(currentData.record)
+        });
+
+        const result = await response.json();
+        console.log("Finalized BIN with ID: ", binId);
+        return result.record;
       }
 
       
