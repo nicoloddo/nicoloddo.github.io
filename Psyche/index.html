@@ -9,6 +9,17 @@
           'X-Access-Key': API_KEY
       };
 
+      let updateQueue = [];
+      // Function to process the functions calls in order
+      async function processUpdateQueue() {
+          if (updateQueue.length > 0) {
+              const update = updateQueue[0];
+              const result = await updateUserBin(update.binId, update.data);
+              updateQueue.shift();
+              processUpdateQueue();
+          }
+      }
+
       // Function to create a new BIN for a user
       async function createNewBinForUser(userData) {
         const response = await fetch(API_URL, {
@@ -80,7 +91,8 @@
             action: "AIterminated",
         };
     
-        await updateUserBin(binId, data);
+        updateQueue.push({binId: binId, data: data});
+        processUpdateQueue();
       }
 
       window.AIcontinue = async function() {
@@ -90,7 +102,8 @@
             action: "AIcontinue",
         };
     
-        await updateUserBin(binId, data);
+        updateQueue.push({binId: binId, data: data});
+        processUpdateQueue();
       }
 
       window.ChoiceTimeStarted = async function() {
@@ -100,7 +113,8 @@
             action: "ChoiceTimeStarted",
         };
     
-        await updateUserBin(binId, data);
+        updateQueue.push({binId: binId, data: data});
+        processUpdateQueue();
       }
 
       window.ChoiceTimeExpired = async function() {
@@ -110,7 +124,8 @@
             action: "ChoiceTimeExpired",
         };
     
-        await updateUserBin(binId, data);
+        updateQueue.push({binId: binId, data: data});
+        processUpdateQueue();
       }
 
       window.Win = async function() {
@@ -120,7 +135,8 @@
             action: "Win",
         };
     
-        await updateUserBin(binId, data);
+        updateQueue.push({binId: binId, data: data});
+        processUpdateQueue();
       }
 
       window.GameOver = async function() {
@@ -130,7 +146,8 @@
             action: "GameOver",
         };
     
-        await updateUserBin(binId, data);
+        updateQueue.push({binId: binId, data: data});
+        processUpdateQueue();
       }
 
       window.NextLevel = async function() {
@@ -140,7 +157,19 @@
             action: "NextLevel",
         };
     
-        await updateUserBin(binId, data);
+        updateQueue.push({binId: binId, data: data});
+        processUpdateQueue();
+      }
+
+      window.Restart = async function() {
+        const binId = localStorage.getItem('userBinId');
+        const data = {
+            time: new Date().toISOString(),
+            action: "Restart",
+        };
+    
+        updateQueue.push({binId: binId, data: data});
+        processUpdateQueue();
       }
 
       window.FinalData = async function(jsonData) {
