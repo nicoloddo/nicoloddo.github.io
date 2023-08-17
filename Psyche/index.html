@@ -134,6 +134,7 @@
       }
 
       window.FinalData = async function(jsonData) {
+        console.log("Received from Unity:", jsonData);
         var data = JSON.parse(jsonData);
     
         // First, retrieve the current data from the bin
