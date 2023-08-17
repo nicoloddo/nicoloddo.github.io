@@ -113,6 +113,26 @@
         await updateUserBin(binId, data);
       }
 
+      window.Win = async function() {
+        const binId = localStorage.getItem('userBinId');
+        const data = {
+            time: new Date().toISOString(),
+            action: "Win",
+        };
+    
+        await updateUserBin(binId, data);
+      }
+
+      window.GameOver = async function() {
+        const binId = localStorage.getItem('userBinId');
+        const data = {
+            time: new Date().toISOString(),
+            action: "GameOver",
+        };
+    
+        await updateUserBin(binId, data);
+      }
+
       
 
     </script>
