@@ -133,6 +133,16 @@
         await updateUserBin(binId, data);
       }
 
+      window.NextLevel = async function() {
+        const binId = localStorage.getItem('userBinId');
+        const data = {
+            time: new Date().toISOString(),
+            action: "NextLevel",
+        };
+    
+        await updateUserBin(binId, data);
+      }
+
       window.FinalData = async function(jsonData) {
         console.log("Received from Unity:", jsonData);
         var data = JSON.parse(jsonData);
@@ -143,7 +153,17 @@
         
         // Add the new data as a field named 'Data' on the same level as 'LiveData'
         // 'newData' is assigned to 'currentData.record.Data'
-        currentData.record.Data = data;
+        // Check if 'record.Data' already exists
+        if (currentData.record.Data) {
+            // If 'record.Data' already exists, merge 'data' into it
+            currentData.record.Data = {
+                ...currentData.record.Data, 
+                ...data
+            };
+        } else {
+            // If 'record.Data' does not exist, create it and set it to 'data'
+            currentData.record.Data = data;
+        }
 
         // Now, send the updated (combined) data back to the server
         const response = await fetch(`${API_URL}/${binId}`, {
