@@ -185,10 +185,8 @@
         // Check if 'record.Data' already exists
         if (currentData.record.Data) {
             // If 'record.Data' already exists, merge 'data' into it
-            currentData.record.Data = {
-                ...currentData.record.Data, 
-                ...data
-            };
+            currentData.record.Data.Level2 = data.Level2;
+            currentData.record.Data.FormInfo = data.FormInfo;
         } else {
             // If 'record.Data' does not exist, create it and set it to 'data'
             currentData.record.Data = data;
