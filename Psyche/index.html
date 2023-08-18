@@ -174,16 +174,20 @@
       }
 
       function validateData(data) {
-          // Check if 'Level1' and 'Level2' exist
-          if (data.Level1 && data.Level2) {
-              // Check if these arrays are not empty
-              if (data.Level1.length > 0 && data.Level2.length > 0) {
-                  return true;
-              }
-          }
-          
-          return false;
+        // Check if 'Level1' and 'Level2' exist
+        if (data.Level1 && data.Level2 && data.FormInfo) {
+            // Check if these arrays are not empty
+            if (data.Level1.length > 0 && data.Level2.length > 0) {
+                // Check if 'Why' and 'Bugs' fields in 'FormInfo' are not empty strings
+                if (data.FormInfo.Why.trim() !== "" && data.FormInfo.Bugs.trim() !== "") {
+                    return true;
+                }
+            }
+        }
+
+        return false;
       }
+
 
       window.FinalData = async function(jsonData) {
         console.log("Received from Unity:", jsonData);
