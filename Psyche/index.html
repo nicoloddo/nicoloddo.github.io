@@ -205,23 +205,23 @@
             // Data has not been sent or is not valid
             // Add the new data as a field named 'Data' on the same level as 'LiveData'
             currentData.record.Data = data;
-        }        
+                
+          // Now, send the updated (combined) data back to the server
+          const response = await fetch(`${API_URL}/${binId}`, {
+              method: 'PUT',
+              headers: headers,
+              body: JSON.stringify(currentData.record)
+          });
 
-        // Now, send the updated (combined) data back to the server
-        const response = await fetch(`${API_URL}/${binId}`, {
-            method: 'PUT',
-            headers: headers,
-            body: JSON.stringify(currentData.record)
-        });
-
-        var isValidData = validateData(data);
-        if(isValidData && response.ok) {
-          console.log("Finalized BIN with ID: ", binId);
-          localStorage.setItem('dataSent', 'true');
+          var isValidData = validateData(data);
+          if(isValidData && response.ok) {
+            console.log("Finalized BIN with ID: ", binId);
+            localStorage.setItem('dataSent', 'true');
+          }
+          
+          const result = await response.json();
+          return result.record;
         }
-        
-        const result = await response.json();
-        return result.record;
       }      
 
     </script>
