@@ -81,6 +81,7 @@
                 action: 'New user created', 
               }]};
               createNewBinForUser(initialData);
+              localStorage.setItem('dataSent', 'false');
           }
       });
 
@@ -172,6 +173,18 @@
         processUpdateQueue();
       }
 
+      function validateData(data) {
+          // Check if 'Level1' and 'Level2' exist
+          if (data.Level1 && data.Level2) {
+              // Check if these arrays are not empty
+              if (data.Level1.length > 0 && data.Level2.length > 0) {
+                  return true;
+              }
+          }
+          
+          return false;
+      }
+
       window.FinalData = async function(jsonData) {
         console.log("Received from Unity:", jsonData);
         var data = JSON.parse(jsonData);
@@ -180,17 +193,15 @@
         // First, retrieve the current data from the bin
         const currentData = await getUserBin(binId);
         
-        // Add the new data as a field named 'Data' on the same level as 'LiveData'
-        // 'newData' is assigned to 'currentData.record.Data'
-        // Check if 'record.Data' already exists
-        if (currentData.record.Data) {
-            // If 'record.Data' already exists, merge 'data' into it
-            currentData.record.Data.Level2 = data.Level2;
-            currentData.record.Data.FormInfo = data.FormInfo;
+        var dataSent = localStorage.getItem('dataSent');
+        if (dataSent === 'true') {
+            // Data has already been sent and is valid
+            console.log("Data already sent and is valid, skipping further sending.");
         } else {
-            // If 'record.Data' does not exist, create it and set it to 'data'
+            // Data has not been sent or is not valid
+            // Add the new data as a field named 'Data' on the same level as 'LiveData'
             currentData.record.Data = data;
-        }
+        }        
 
         // Now, send the updated (combined) data back to the server
         const response = await fetch(`${API_URL}/${binId}`, {
@@ -199,8 +210,13 @@
             body: JSON.stringify(currentData.record)
         });
 
+        var isValidData = validateData(data);
+        if(isValidData && response.ok) {
+          console.log("Finalized BIN with ID: ", binId);
+          localStorage.setItem('dataSent', 'true');
+        }
+        
         const result = await response.json();
-        console.log("Finalized BIN with ID: ", binId);
         return result.record;
       }      
 
