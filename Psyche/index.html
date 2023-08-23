@@ -222,11 +222,23 @@
           const result = await response.json();
           return result.record;
         }
+      }
+
+      window.togglePDF = async function(show) {
+        var pdfFrame = document.getElementById("pdf-frame");
+        var unityCanvas = document.getElementById("unity-canvas");
+        if (show) {
+          unityCanvas.style.display = 'none';
+          pdfFrame.style.display = 'block';
+        } else {
+          pdfFrame.style.display = 'none';
+          unityCanvas.style.display = 'block';
+        }
       }      
 
     </script>
 
-
+    <iframe id="pdf-frame" src="/path_to_your_pdf/yourfile.pdf" width="80%" height="80%" style="border: none; position: fixed; top: 10%; left: 10%; display: none;"></iframe>
 
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
