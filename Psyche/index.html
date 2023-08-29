@@ -1,77 +1,73 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <script>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Psyche</title>
+  <link rel="icon" type="image/png" href="../Logos/icon.png">
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #231F20;
+    }
+    #unity-canvas {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <button id="close-pdf" style="position: fixed; top: 5%; right: 10%; display: none;">Close PDF</button>
+  <iframe id="pdf-frame" src="/path_to_your_pdf/yourfile.pdf" width="80%" height="80%" style="border: none; position: fixed; top: 10%; left: 10%; display: none;"></iframe>
+  <canvas id="unity-canvas"></canvas>
 
-      window.togglePDF = async function(show) {
-        var pdfFrame = document.getElementById("pdf-frame");
-        var unityCanvas = document.getElementById("unity-canvas");
-        var closeButton = document.getElementById("close-pdf");
-        if (show) {
-          unityCanvas.style.display = 'none';
-          pdfFrame.style.display = 'block';
-          closeButton.style.display = 'block';
-        } else {
-          pdfFrame.style.display = 'none';
-          closeButton.style.display = 'none';
-          unityCanvas.style.display = 'block';
-        }
-      }      
-
-      document.getElementById("close-pdf").addEventListener("click", function() {
-        togglePDF(false);
-      });
-
-    </script>
-
-    <button id="close-pdf" style="position: fixed; top: 5%; right: 10%; display: none;">Close PDF</button>
-
-    <iframe id="pdf-frame" src="/path_to_your_pdf/yourfile.pdf" width="80%" height="80%" style="border: none; position: fixed; top: 10%; left: 10%; display: none;"></iframe>
-
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Psyche</title>
-    <link rel="icon" type="image/png" href="../Logos/icon.png">
-    <style>
-      body, html {
-        height: 100%;
-        margin: 0;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #231F20;
+  <!-- Move your JavaScript here -->
+  <script>
+    window.togglePDF = function(show) {
+      var pdfFrame = document.getElementById("pdf-frame");
+      var unityCanvas = document.getElementById("unity-canvas");
+      var closeButton = document.getElementById("close-pdf");
+      if (show) {
+        unityCanvas.style.display = 'none';
+        pdfFrame.style.display = 'block';
+        closeButton.style.display = 'block';
+      } else {
+        pdfFrame.style.display = 'none';
+        closeButton.style.display = 'none';
+        unityCanvas.style.display = 'block';
       }
-      #unity-canvas {
-        width: 100%;
-        height: 100%;
-      }
-    </style>
-  </head>
-  <body>
-    <canvas id="unity-canvas"></canvas>
-    <script src="../JS/pleaserotate.min.js"></script>
-    <script src="Build/Psyche.loader.js"></script>
-    <script>
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        var meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
-      }
+    }
+    
+    document.getElementById("close-pdf").addEventListener("click", function() {
+      togglePDF(false);
+    });
+  </script>
 
-      createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/Psyche.data",
-        frameworkUrl: "Build/Psyche.framework.js",
-        codeUrl: "Build/Psyche.wasm",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "nicoloddo",
-        productName: "Psyche",
-        productVersion: "8.0",
-        //matchWebGLToCanvasSize: true, // Adjust to make WebGL canvas size match the size of its DOM element.
-      });
+  <script src="../JS/pleaserotate.min.js"></script>
+  <script src="Build/Psyche.loader.js"></script>
+  <script>
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      var meta = document.createElement('meta');
+      meta.name = 'viewport';
+      meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+      document.getElementsByTagName('head')[0].appendChild(meta);
+    }
 
-    </script>
-  </body>
+    createUnityInstance(document.querySelector("#unity-canvas"), {
+      dataUrl: "Build/Psyche.data",
+      frameworkUrl: "Build/Psyche.framework.js",
+      codeUrl: "Build/Psyche.wasm",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "nicoloddo",
+      productName: "Psyche",
+      productVersion: "8.0",
+      //matchWebGLToCanvasSize: true, // Adjust to make WebGL canvas size match the size of its DOM element.
+    });
+  </script>
+</body>
 </html>
-
