@@ -2,241 +2,29 @@
 <html lang="en-us">
   <head>
     <script>
-      const API_KEY = '$2b$10$INYNLzgjp4rl9cJhxbTc8ugvQNlgZbAu2HX8cXK647NJmn945I3h.';
-      const API_URL = 'https://api.jsonbin.io/v3/b';
-      const headers = {
-          'Content-Type': 'application/json',
-          'X-Access-Key': API_KEY
-      };
-
-      let updateQueue = [];
-      // Function to process the functions calls in order
-      async function processUpdateQueue() {
-          if (updateQueue.length > 0) {
-              const update = updateQueue[0];
-              const result = await updateUserBin(update.binId, update.data);
-              updateQueue.shift();
-              processUpdateQueue();
-          }
-      }
-
-      // Function to create a new BIN for a user
-      async function createNewBinForUser(userData) {
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify(userData)
-        });
-
-        const result = await response.json();
-        localStorage.setItem('userBinId', result.metadata.id);
-        console.log("Stored userBinId: ", localStorage.getItem('userBinId'));
-        console.log("New BIN created with ID: ", result.metadata.id);
-        return result.record;
-      }
-
-      // Function to get a user's BIN
-      async function getUserBin(binId) {
-        const response = await fetch(`${API_URL}/${binId}`, {
-            method: 'GET',
-            headers: headers
-        });
-        return await response.json();
-      }
-
-      // Function to update a user's BIN with new data
-      async function updateUserBin(binId, newData) {
-        // First, retrieve the current data from the bin
-        const currentData = await getUserBin(binId);
-
-        // Append the new data to the existing data
-        // Assuming currentData.record.LiveData is an array
-        currentData.record.LiveData.push(newData);
-
-        // Now, send the updated (combined) data back to the server
-        const response = await fetch(`${API_URL}/${binId}`, {
-            method: 'PUT',
-            headers: headers,
-            body: JSON.stringify(currentData.record)
-        });
-
-        const result = await response.json();
-        console.log("Updated BIN with ID: ", binId);
-        return result.record;
-      }
-      
-      // On page load, create a new BIN for new users
-      window.addEventListener('load', (event) => {
-          console.log("Page loaded. Checking for userBinId...");
-          
-          const userBinId = localStorage.getItem('userBinId');
-          console.log("Retrieved userBinId: ", userBinId);
-
-          if (!userBinId || userBinId === 'null' || userBinId === 'undefined') {
-              console.log("No userBinId found. Creating new bin for user...");
-              
-              const initialData = {LiveData: [
-              { 
-                time: new Date().toISOString(),
-                action: 'New user created', 
-              }]};
-              createNewBinForUser(initialData);
-              localStorage.setItem('dataSent', 'false');
-          }
-      });
-
-      window.AIterminated = async function() {
-        const binId = localStorage.getItem('userBinId');
-        const data = {
-            time: new Date().toISOString(),
-            action: "AIterminated",
-        };
-    
-        updateQueue.push({binId: binId, data: data});
-        processUpdateQueue();
-      }
-
-      window.AIcontinue = async function() {
-        const binId = localStorage.getItem('userBinId');
-        const data = {
-            time: new Date().toISOString(),
-            action: "AIcontinue",
-        };
-    
-        updateQueue.push({binId: binId, data: data});
-        processUpdateQueue();
-      }
-
-      window.ChoiceTimeStarted = async function() {
-        const binId = localStorage.getItem('userBinId');
-        const data = {
-            time: new Date().toISOString(),
-            action: "ChoiceTimeStarted",
-        };
-    
-        updateQueue.push({binId: binId, data: data});
-        processUpdateQueue();
-      }
-
-      window.ChoiceTimeExpired = async function() {
-        const binId = localStorage.getItem('userBinId');
-        const data = {
-            time: new Date().toISOString(),
-            action: "ChoiceTimeExpired",
-        };
-    
-        updateQueue.push({binId: binId, data: data});
-        processUpdateQueue();
-      }
-
-      window.Win = async function() {
-        const binId = localStorage.getItem('userBinId');
-        const data = {
-            time: new Date().toISOString(),
-            action: "Win",
-        };
-    
-        updateQueue.push({binId: binId, data: data});
-        processUpdateQueue();
-      }
-
-      window.GameOver = async function() {
-        const binId = localStorage.getItem('userBinId');
-        const data = {
-            time: new Date().toISOString(),
-            action: "GameOver",
-        };
-    
-        updateQueue.push({binId: binId, data: data});
-        processUpdateQueue();
-      }
-
-      window.NextLevel = async function() {
-        const binId = localStorage.getItem('userBinId');
-        const data = {
-            time: new Date().toISOString(),
-            action: "NextLevel",
-        };
-    
-        updateQueue.push({binId: binId, data: data});
-        processUpdateQueue();
-      }
-
-      window.Restart = async function() {
-        const binId = localStorage.getItem('userBinId');
-        const data = {
-            time: new Date().toISOString(),
-            action: "Restart",
-        };
-    
-        updateQueue.push({binId: binId, data: data});
-        processUpdateQueue();
-      }
-
-      function validateData(data) {
-        // Check if 'Level1' and 'Level2' exist
-        if (data.Level1 && data.Level2 && data.FormInfo) {
-            // Check if these arrays are not empty
-            if (data.Level1.length > 0 && data.Level2.length > 0) {
-                // Check if 'Why' and 'Bugs' fields in 'FormInfo' are not empty strings
-                if (data.FormInfo.Why.trim() !== "" && data.FormInfo.Bugs.trim() !== "") {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-      }
-
-
-      window.FinalData = async function(jsonData) {
-        console.log("Received from Unity:", jsonData);
-        var data = JSON.parse(jsonData);
-
-        const binId = localStorage.getItem('userBinId');
-        // First, retrieve the current data from the bin
-        const currentData = await getUserBin(binId);
-        
-        var dataSent = localStorage.getItem('dataSent');
-        if (dataSent === 'true') {
-            // Data has already been sent and is valid
-            console.log("Data already sent and is valid, skipping further sending.");
-        } else {
-            // Data has not been sent or is not valid
-            // Add the new data as a field named 'Data' on the same level as 'LiveData'
-            currentData.record.Data = data;
-                
-          // Now, send the updated (combined) data back to the server
-          const response = await fetch(`${API_URL}/${binId}`, {
-              method: 'PUT',
-              headers: headers,
-              body: JSON.stringify(currentData.record)
-          });
-
-          var isValidData = validateData(data);
-          if(isValidData && response.ok) {
-            console.log("Finalized BIN with ID: ", binId);
-            localStorage.setItem('dataSent', 'true');
-          }
-          
-          const result = await response.json();
-          return result.record;
-        }
-      }
 
       window.togglePDF = async function(show) {
         var pdfFrame = document.getElementById("pdf-frame");
         var unityCanvas = document.getElementById("unity-canvas");
+        var closeButton = document.getElementById("close-pdf");
         if (show) {
           unityCanvas.style.display = 'none';
           pdfFrame.style.display = 'block';
+          closeButton.style.display = 'block';
         } else {
           pdfFrame.style.display = 'none';
+          closeButton.style.display = 'none';
           unityCanvas.style.display = 'block';
         }
       }      
 
+      document.getElementById("close-pdf").addEventListener("click", function() {
+        togglePDF(false);
+      });
+
     </script>
+
+    <button id="close-pdf" style="position: fixed; top: 5%; right: 10%; display: none;">Close PDF</button>
 
     <iframe id="pdf-frame" src="/path_to_your_pdf/yourfile.pdf" width="80%" height="80%" style="border: none; position: fixed; top: 10%; left: 10%; display: none;"></iframe>
 
