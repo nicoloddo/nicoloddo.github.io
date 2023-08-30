@@ -50,6 +50,9 @@
   
   <canvas id="unity-canvas"></canvas>
 
+  <script src="../JS/pleaserotate.min.js"></script>
+  <script src="Build/Psyche.loader.js"></script>
+
   <script>
     window.togglePDF = function(show) {
       var pdfFrame = document.getElementById("pdf-frame");
@@ -67,7 +70,8 @@
     document.getElementById("close-pdf").addEventListener("click", function() {
       togglePDF(false);
     });
-    
+    </script>
+    <script>
     var progressBarFull = document.getElementById("unity-progress-bar-full");
     var loadingBar = document.getElementById("unity-loading-bar");
 
@@ -90,7 +94,5 @@
     });
   </script>
 
-  <script src="../JS/pleaserotate.min.js"></script>
-  <script src="Build/Psyche.loader.js"></script>
 </body>
 </html>
