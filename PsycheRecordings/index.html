@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audio Recordings</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  .column {
+    width: 48%;
+  }
+  .audio-file {
+    margin-bottom: 10px;
+  }
+  .audio-file label {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<h1>Audio Recordings</h1>
+<div class="container">
+  <div class="column" id="with-breathing">
+    <h2>With Breathing</h2>
+    <!-- Repeat this block for each audio file with breathing -->
+    <div class="audio-file">
+      <label for="audio1">Recording 1:</label>
+      <audio id="audio1" controls>
+        <source src="path_to_audio_with_breathing_1.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag.
+      </audio>
+    </div>
+    <!-- ... up to Recording 7 -->
+  </div>
+
+  <div class="column" id="without-breathing">
+    <h2>Without Breathing</h2>
+    <!-- Repeat this block for each audio file without breathing -->
+    <div class="audio-file">
+      <label for="audio8">Recording 8:</label>
+      <audio id="audio8" controls>
+        <source src="path_to_audio_without_breathing_8.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag.
+      </audio>
+    </div>
+    <!-- ... up to Recording 14 -->
+  </div>
+</div>
+
+</body>
+</html>
