@@ -16,8 +16,8 @@ body {
 }
 
 #speedometer {
-    width: 1044px; /* Fixed width */
-    height: 516px; /* Fixed height */
+    width: 1000px; /* Fixed width */
+    height: 500px; /* Fixed height */
     margin-top: 20px;
     background: url('speedometer.png') no-repeat center center;
     background-size: contain;
@@ -30,8 +30,8 @@ body {
 }
 
 #speedometer_borders {
-    height: 100%;
-    width: auto;
+    width: 1000px; /* Fixed width */
+    height: 498px; /* Fixed height */
     position: absolute;
     z-index: 1;
 }
@@ -52,7 +52,7 @@ body {
 }
 .lid-invisible {
     transition: transform 6s; /* Animate to the invisible state slowly */
-    transform: translateY(-200%); /* Slide out of view */
+    transform: translateY(-250%); /* Slide out of view */
 }
 
 #arrow {
