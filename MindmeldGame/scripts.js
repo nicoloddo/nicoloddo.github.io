@@ -21,10 +21,10 @@ var initialTouchX;
 function rotateGuesser(deltaX) {
     var rotationStep = 2; // Adjust the sensitivity of rotation
     var tempRotation = guesserRotation + deltaX * rotationStep;
-    if(tempRotation <= 360 && guesserRotation >= 0) {
-        guesserRotation += deltaX * rotationStep;
-        document.getElementById('guesser').style.transform = 'rotate(' + guesserRotation + 'deg)';
-    }
+    
+    guesserRotation += deltaX * rotationStep;
+    document.getElementById('guesser').style.transform = 'rotate(' + guesserRotation + 'deg)';
+    
 }
 
 document.addEventListener('keydown', function(event) {
