@@ -1,0 +1,119 @@
+body {
+    background-image: url('background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+#speedometer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#speedometer {
+    width: 1044px; /* Fixed width */
+    height: 516px; /* Fixed height */
+    margin-top: 20px;
+    background: url('speedometer.png') no-repeat center center;
+    background-size: contain;
+    position: relative;
+    overflow: hidden; /* Hide anything that overflows */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#speedometer_borders {
+    height: 100%;
+    width: auto;
+    position: absolute;
+    z-index: 1;
+}
+
+#lid {
+    width: 1100px; /* Fixed width, set it a bit bigger than the speedometer */
+    height: 530px;
+    margin-top: -150px; /* Adjust to cover the speedometer (shold match the spinbutton one*/
+    background: url('lid.png') no-repeat center center;
+    background-size: contain;
+    position: absolute;
+    z-index: 2;
+}
+
+.lid-visible {
+    transition: transform 0.5s; 
+    transform: translateY(0%); /* Slide into view */
+}
+.lid-invisible {
+    transition: transform 6s; /* Animate to the invisible state slowly */
+    transform: translateY(-200%); /* Slide out of view */
+}
+
+#arrow {
+    height: 100%;
+    width: auto;
+    position: absolute;
+    transform-origin: bottom;
+    transform: rotate(0deg);
+}
+
+#spinButton {
+    background-image: url('spin_button.png');
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    margin-top: 150px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    position: relative;
+}
+
+#lidButton {
+    background-image: url('lid_button.png');
+    background-size: cover;
+    width: 200px;
+    height: 100px;
+    margin-top: -20px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    position: relative;
+}
+
+#lid-text {
+    position: absolute;
+    top: 50%; /* Adjust as needed to position over the image */
+    left: 50%; /* Adjust as needed to position over the image */
+    transform: translate(-50%, -160%);
+    background-color: transparent;
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    border: 2px transparent;
+    padding: 10px;
+    resize: none;
+    overflow: auto;
+    width: 35%; /* Adjust width as needed */
+    text-align: center; /* Center text horizontally */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center text vertically */
+    text-transform: uppercase;
+}
+
+#lid-text::placeholder {
+    color: white; /* White font color for placeholder text */
+    opacity: 1; /* Full opacity to ensure it's fully visible */
+    text-align: center;
+    text-transform: uppercase;
+}
