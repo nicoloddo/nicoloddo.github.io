@@ -52,7 +52,7 @@ document.getElementById('guesser').addEventListener('touchmove', function(event)
 
 document.getElementById('extractScaleButton').addEventListener('click', function() {
     // Assuming scales.txt is served from the server
-    fetch('scales.txt')
+    fetch('https://raw.githubusercontent.com/nicoloddo/nicoloddo.github.io/main/MindmeldGame/scale.txt')
     .then(response => response.text())
     .then(data => {
         const lines = data.split('\n');
