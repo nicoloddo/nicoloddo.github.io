@@ -19,9 +19,9 @@ var guesserRotation = 0;
 var initialTouchX;
 
 function rotateGuesser(deltaX) {
-    var rotationStep = 1; // Adjust the sensitivity of rotation
+    var rotationStep = 2; // Adjust the sensitivity of rotation
     var tempRotation = guesserRotation + deltaX * rotationStep;
-    if(tempRotation <= 90 && guesserRotation >= 0) {
+    if(tempRotation <= 360 && guesserRotation >= 0) {
         guesserRotation += deltaX * rotationStep;
         document.getElementById('guesser').style.transform = 'rotate(' + guesserRotation + 'deg)';
     }
