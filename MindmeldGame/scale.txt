@@ -110,3 +110,5 @@ Duro:Morbido
 Vivo:Morto
 Sveglio:Assonnato
 Sano:Pazzo
+Trash:Sofisticato
+Boomer:GenZ
