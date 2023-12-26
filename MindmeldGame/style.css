@@ -18,7 +18,7 @@ body {
 #speedometer {
     width: 1044px; /* Fixed width */
     height: 516px; /* Fixed height */
-    margin-top: 20px;
+    margin-top: -150px;
     background: url('speedometer.png') no-repeat center center;
     background-size: contain;
     position: relative;
@@ -66,7 +66,7 @@ body {
 
 #guesser {
     height: 45%;
-    margin-top: 230px;
+    margin-top: -15px;
     width: auto;
     position: absolute;
     transform-origin: center calc(100% - 68px); /* Adjust to move rotation point */
@@ -74,17 +74,32 @@ body {
     z-index: 3;
 }
 
+#extractScaleButton {
+    background-image: url('scale_button.png');
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    margin-top: 500px;
+    right: 35%;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    position: absolute;
+}
+
 #spinButton {
     background-image: url('spin_button.png');
     background-size: cover;
     width: 100px;
     height: 100px;
-    margin-top: 150px;
+    margin-top: 500px;
+    right: 60%;
     border: none;
     cursor: pointer;
     outline: none;
     background-color: transparent;
-    position: relative;
+    position: absolute;
 }
 
 #lidButton {
@@ -92,12 +107,13 @@ body {
     background-size: cover;
     width: 200px;
     height: 100px;
-    margin-top: -20px;
+    margin-top:500px;
+    right: 45%;
     border: none;
     cursor: pointer;
     outline: none;
     background-color: transparent;
-    position: relative;
+    position: absolute;
 }
 
 #lid-text {
@@ -127,4 +143,18 @@ body {
     opacity: 1; /* Full opacity to ensure it's fully visible */
     text-align: center;
     text-transform: uppercase;
+}
+
+.scale-text {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; /* Adjust as needed */
+}
+
+#left-text, #right-text {
+    background-color: transparent;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
 }
