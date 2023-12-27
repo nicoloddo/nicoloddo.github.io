@@ -30,9 +30,12 @@ function rotateGuesser(deltaX) {
 
 document.addEventListener('keydown', function(event) {
     var deltaX = 0;
-    if (event.key === 'ArrowRight' || event.key === 'ArrowUp') {
+    // ArrowRight or ArrowUp
+    if (event.keyCode === 39 || event.keyCode === 38) {
         deltaX = 1;
-    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowDown') {
+    } 
+    // ArrowLeft or ArrowDown
+    else if (event.keyCode === 37 || event.keyCode === 40) {
         deltaX = -1;
     }
     rotateGuesser(deltaX);
