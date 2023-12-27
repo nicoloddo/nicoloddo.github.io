@@ -148,7 +148,7 @@ body {
 .scale-text {
     display: flex;
     justify-content: space-between;
-    width: 100%; /* Adjust as needed */
+    width: 150%; /* Adjust as needed */
 }
 
 #left-text, #right-text {
