@@ -1,5 +1,5 @@
 body {
-    background-image: url('background.png');
+    background-image: url('img/background.png');
     background-size: cover;
     background-repeat: no-repeat;
     margin: 0;
@@ -19,7 +19,7 @@ body {
     width: 1044px; /* Fixed width */
     height: 516px; /* Fixed height */
     margin-top: -150px;
-    background: url('speedometer.png') no-repeat center center;
+    background: url('img/speedometer.png') no-repeat center center;
     background-size: contain;
     position: relative;
     overflow: hidden; /* Hide anything that overflows */
@@ -40,7 +40,7 @@ body {
     width: 1044px; /* Fixed width, set it a bit bigger than the speedometer */
     height: 516px;
     margin-top: -200px; /* Adjust to cover the speedometer (shold match the spinbutton one*/
-    background: url('lid.png') no-repeat center center;
+    background: url('img/lid.png') no-repeat center center;
     background-size: contain;
     position: absolute;
     z-index: 2;
@@ -75,7 +75,7 @@ body {
 }
 
 #extractScaleButton {
-    background-image: url('scale_button.png');
+    background-image: url('img/buttons/scale_button.png');
     background-size: cover;
     width: 100px;
     height: 100px;
@@ -89,7 +89,7 @@ body {
 }
 
 #spinButton {
-    background-image: url('spin_button.png');
+    background-image: url('img/buttons/spin_button.png');
     background-size: cover;
     width: 100px;
     height: 100px;
@@ -103,7 +103,7 @@ body {
 }
 
 #lidButton {
-    background-image: url('lid_button.png');
+    background-image: url('img/buttons/lid_button.png');
     background-size: cover;
     width: 200px;
     height: 100px;

@@ -53,7 +53,7 @@ document.getElementById('guesser').addEventListener('touchmove', function(event)
 let usedLines = []; // Array to store used lines
 
 document.getElementById('extractScaleButton').addEventListener('click', function() {
-    fetch('https://raw.githubusercontent.com/nicoloddo/nicoloddo.github.io/main/MindmeldGame/scale.txt')
+    fetch('https://raw.githubusercontent.com/nicoloddo/nicoloddo.github.io/main/PlayTelepatia/scales/ita/default.txt')
     .then(response => response.text())
     .then(data => {
         const lines = data.split('\n');
