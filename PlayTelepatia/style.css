@@ -145,6 +145,10 @@ body {
     margin-top: -1%;
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px); /* Blur effect for everything behind the container */
+    border-top: 0.4vw solid black;
+    border-bottom: 0.4vw solid black;
+    box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.7); /* Horizontal offset, vertical offset, blur radius, color */
+
     text-transform: uppercase;
 }
 
@@ -156,8 +160,9 @@ body {
     flex: 1; /* Allow the text elements to grow and shrink */
     white-space: normal; /* Allow the text to wrap */
     text-align: center; /* Center text within each block */
-    padding: 2%; /* Adjust padding as needed */
+    padding: 1.5%; /* Adjust padding as needed */
     margin: 0 2%; /* Add margin to separate the text elements */
+
 }
 
 .buttons {
