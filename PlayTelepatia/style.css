@@ -39,7 +39,7 @@ body {
 #lid {
     width: 1044px; /* Fixed width, set it a bit bigger than the speedometer */
     height: 516px;
-    margin-top: -200px; /* Adjust to cover the speedometer (shold match the spinbutton one*/
+    margin-top: -150px; /* Adjust to cover the speedometer (shold match the spinbutton one*/
     background: url('img/lid.png') no-repeat center center;
     background-size: contain;
     position: absolute;
@@ -120,13 +120,13 @@ body {
     position: absolute;
     top: 50%; /* Adjust as needed to position over the image */
     left: 50%; /* Adjust as needed to position over the image */
-    transform: translate(-50%, -160%);
+    transform: translate(-50%, -200%);
     background-color: transparent;
     color: white;
-    font-size: 50px;
+    font-size: 32px;
     font-weight: bold;
     font-family: Arial, sans-serif;
-    border: 2px transparent;
+    border: 2px solid white;
     padding: 10px;
     resize: none;
     overflow: auto;
@@ -146,16 +146,20 @@ body {
 }
 
 .scale-text {
+    margin-right: 40%;
     display: flex;
     justify-content: space-between;
-    width: 150%; /* Adjust as needed */
+    width: 60%; /* Adjust as needed */
 }
 
 #left-text, #right-text {
     margin-top: 10px;
-    background-color: transparent;
+    background-color: black;
     color: white;
     font-size: 30px;
     font-weight: bold;
     font-family: Arial, sans-serif;
+    flex: 1; /* Allow the text elements to grow and shrink */
+    white-space: normal; /* Allow the text to wrap */
+    padding: 0 443px; /* Add some padding for spacing */
 }
