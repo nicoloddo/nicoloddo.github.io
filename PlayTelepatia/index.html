@@ -5,26 +5,33 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+    <div id="title-container">
+        <img id="title-image" src="img/title.png" alt="Page Title">
+    </div>
+
     <div id="speedometer-container">
-        <div id="lid" class="lid-visible">
-            <textarea id="lid-text" placeholder="matte manis (scrivi qui suggerimento)"></textarea>
+        <div id="lid" class="lid-invisible">
+            <textarea id="lid-text" placeholder="MATTE MANIS&#10;(Scrivi qui suggerimento)"></textarea>
         </div>
-        <button id="lidButton"></button>
         <div id="speedometer">
 
             <img id="speedometer_borders" src="img/speedometer_borders.png" alt="SpeedometerBorders">
             <img id="arrow" src="img/arrow.png" alt="Arrow">
         </div>
 
-        <div class="scale-text">
+        <img id="guesser" src="img/guesser.png" alt="Guesser">
+    </div>
+    <div class="scale-text">
             <span id="left-text">Criminale</span> <!-- Left text element -->
             <span id="right-text">Eroe</span> <!-- Right text element -->
-        </div>
+    </div>
 
-        <img id="guesser" src="img/guesser.png" alt="Guesser">
+    <div class="buttons">
+        <button id="lidButton"></button>
         <button id="extractScaleButton"></button>
         <button id="spinButton"></button>
     </div>
+
     <script src="scripts.js"></script>
 </body>
 </html>

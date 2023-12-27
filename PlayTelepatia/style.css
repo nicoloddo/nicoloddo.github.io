@@ -5,46 +5,73 @@ body {
     margin: 0;
     height: 100vh; /* Full viewport height */
     display: flex;
+    flex-direction: column;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
 }
 
+#title-image {
+    width: 30vw;
+    margin-top: -2.5vw;
+    filter: drop-shadow(-1.5vw 1.2vw 1vw rgba(0, 0, 0, 1)); /* Horizontal offset, vertical offset, blur radius, color */
+}
+
 #speedometer-container {
+    width: 55vw; /* 50% of the viewport width */
+    max-width: 1044px; /* Maximum width */
+    min-width: 300px; /* Minimum width */
+    margin-top:-5vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+    #speedometer-container {
+        width: 90vw; /* Increase to 90% of the viewport width on small screens */
+    }
 }
 
 #speedometer {
-    width: 1044px; /* Fixed width */
-    height: 516px; /* Fixed height */
-    margin-top: -150px;
+    width: 100%; /* Use 100% of the parent container width */
+    height: 0; /* Initially set height to 0 */
+    padding-top: 49.42%; /* Set top padding to maintain aspect ratio */
     background: url('img/speedometer.png') no-repeat center center;
     background-size: contain;
     position: relative;
-    overflow: hidden; /* Hide anything that overflows */
+    overflow: hidden;
 
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 1;
+
+    filter: drop-shadow(-1.5vw -1.2vw 1vw rgba(0, 0, 0, 1)); /* Horizontal offset, vertical offset, blur radius, color */
 }
 
 #speedometer_borders {
     height: 100%;
     width: auto;
     position: absolute;
-    z-index: 1;
-}
-
-#lid {
-    width: 1044px; /* Fixed width, set it a bit bigger than the speedometer */
-    height: 516px;
-    margin-top: -150px; /* Adjust to cover the speedometer (shold match the spinbutton one*/
-    background: url('img/lid.png') no-repeat center center;
-    background-size: contain;
-    position: absolute;
+    top: 0%;
     z-index: 2;
 }
+
+
+#lid {
+    width: 100%; /* Match the width of the speedometer */
+    height: 0; /* Use the same height trick as the speedometer */
+    padding-top: 49.42%; /* Match the padding-top of the speedometer */
+    position: absolute;
+    top: 0; /* Align the top edge with the speedometer */
+    left: 0; /* Align the left edge with the speedometer */
+    background: url('img/lid.png') no-repeat center center;
+    background-size: contain;
+    z-index: 3; /* Ensure it's above the speedometer */
+}
+
 
 .lid-visible {
     transition: transform 0.5s; 
@@ -55,82 +82,22 @@ body {
     transform: translateY(-250%); /* Slide out of view */
 }
 
-#arrow {
-    height: 97%;
-    margin-top: 10px;
-    width: auto;
-    position: absolute;
-    transform-origin: bottom;
-    transform: rotate(0deg);
-}
-
-#guesser {
-    height: 45%;
-    margin-top: -15px;
-    width: auto;
-    position: absolute;
-    transform-origin: center calc(100% - 68px); /* Adjust to move rotation point */
-    transform: rotate(0deg);
-    z-index: 3;
-}
-
-#extractScaleButton {
-    background-image: url('img/buttons/scale_button.png');
-    background-size: cover;
-    width: 100px;
-    height: 100px;
-    margin-top: 500px;
-    right: 35%;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    background-color: transparent;
-    position: absolute;
-}
-
-#spinButton {
-    background-image: url('img/buttons/spin_button.png');
-    background-size: cover;
-    width: 100px;
-    height: 100px;
-    margin-top: 500px;
-    right: 60%;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    background-color: transparent;
-    position: absolute;
-}
-
-#lidButton {
-    background-image: url('img/buttons/lid_button.png');
-    background-size: cover;
-    width: 200px;
-    height: 100px;
-    margin-top:500px;
-    right: 45%;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    background-color: transparent;
-    position: absolute;
-}
-
 #lid-text {
     position: absolute;
     top: 50%; /* Adjust as needed to position over the image */
     left: 50%; /* Adjust as needed to position over the image */
-    transform: translate(-50%, -200%);
+    transform: translate(-50%, -190%);
     background-color: transparent;
     color: white;
-    font-size: 32px;
+    font-size: 1.5vw;
     font-weight: bold;
-    font-family: Arial, sans-serif;
+    font-family: Georgia, serif;
     border: 2px solid white;
+    border-radius: 15px; /* Adjust this value to control the roundness */
     padding: 10px;
     resize: none;
     overflow: auto;
-    width: 35%; /* Adjust width as needed */
+    width: 42%; /* Adjust width as needed */
     text-align: center; /* Center text horizontally */
     display: flex;
     flex-direction: column;
@@ -141,25 +108,107 @@ body {
 #lid-text::placeholder {
     color: white; /* White font color for placeholder text */
     opacity: 1; /* Full opacity to ensure it's fully visible */
+    font-size: 1.3vw;
     text-align: center;
+}
+
+#arrow {
+    height: 100%; /* Adjust as needed to fit the speedometer */
+    width: 40%; /* Adjust based on the arrow's aspect ratio */
+    position: absolute;
+    top: 0%; /* Center vertically in the parent */
+    transform: rotate(0deg); /* Center and set initial rotation */
+    transform-origin: bottom; /* Set the rotation origin at the bottom center */
+}
+
+
+#guesser {
+    height: 75%;
+    width: auto;
+    position: absolute;
+    top: 35%;
+    transform-origin: center 85%; /* Adjust to move rotation point */
+    transform: rotate(0deg);
+    z-index: 4;
+
+    filter: drop-shadow(-1.5vw -0.2vw 1vw rgba(0, 0, 0, 0.8)); /* Horizontal offset, vertical offset, blur radius, color */
+}
+
+
+.scale-text {
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: auto; /* Center align the entire block */
+    margin-right: auto;
+    margin-top: -1%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px); /* Blur effect for everything behind the container */
     text-transform: uppercase;
 }
 
-.scale-text {
-    margin-right: 40%;
-    display: flex;
-    justify-content: space-between;
-    width: 60%; /* Adjust as needed */
-}
-
 #left-text, #right-text {
-    margin-top: 10px;
-    background-color: black;
     color: white;
-    font-size: 30px;
+    font-size: 1.3vw;
     font-weight: bold;
-    font-family: Arial, sans-serif;
+    font-family: Georgia, serif;
     flex: 1; /* Allow the text elements to grow and shrink */
     white-space: normal; /* Allow the text to wrap */
-    padding: 0 443px; /* Add some padding for spacing */
+    text-align: center; /* Center text within each block */
+    padding: 2%; /* Adjust padding as needed */
+    margin: 0 2%; /* Add margin to separate the text elements */
+}
+
+.buttons {
+    display: flex;
+    width: 100vw; /* Take the full width of the container */
+    align-items: center;
+    margin-left: auto; /* Center align the entire block */
+    margin-right: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px); /* Blur effect for everything behind the container */
+    flex-grow: 1; /* Grow to take the remaining space */
+}
+
+#extractScaleButton {
+    background-image: url('img/buttons/scale_button.png');
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    right: 33vw;
+    transform: translateX(50%);
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    position: absolute;
+}
+
+#spinButton {
+    background-image: url('img/buttons/spin_button.png');
+    background-size: cover;
+    width: 115px;
+    height: 115px;
+    right: 66vw;
+    transform: translateX(50%);
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    position: absolute;
+}
+
+#lidButton {
+    background-image: url('img/buttons/lid_button.png');
+    background-size: cover;
+    width: 115px;
+    height: 115px;
+    right: 50vw;
+    transform: translateX(50%);
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    position: absolute;
 }

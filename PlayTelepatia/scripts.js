@@ -22,9 +22,10 @@ function rotateGuesser(deltaX) {
     var rotationStep = 2; // Adjust the sensitivity of rotation
     var tempRotation = guesserRotation + deltaX * rotationStep;
     
-    guesserRotation += deltaX * rotationStep;
-    document.getElementById('guesser').style.transform = 'rotate(' + guesserRotation + 'deg)';
-    
+    if(tempRotation <= 100 && tempRotation >= -100) {
+        guesserRotation += deltaX * rotationStep;
+        document.getElementById('guesser').style.transform = 'rotate(' + guesserRotation + 'deg)';
+    } 
 }
 
 document.addEventListener('keydown', function(event) {
