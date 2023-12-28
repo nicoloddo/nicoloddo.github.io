@@ -15,6 +15,7 @@ document.getElementById('lidButton').addEventListener('click', function() {
     }
 });
 
+// GUESSER *******
 var guesserRotation = 0;
 var initialTouchX;
 
@@ -54,13 +55,51 @@ document.getElementById('guesser').addEventListener('touchmove', function(event)
 }, { passive: true });
 
 
+// SIDE PANEL MECHANICS
+let urls = []; // Global array to store selected URLs
+
+document.getElementById('togglePanelBtn').addEventListener('click', function() {
+    var panel = document.getElementById('sidePanel');
+    panel.classList.toggle('open');
+});
+
+// Function to update URLs based on checked checkboxes
+function updateSelectedUrls() {
+    var checkboxes = document.querySelectorAll('.scale-options input[type="checkbox"]');
+    urls = []; // Reset the URLs array
+
+    checkboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+            urls.push(checkbox.value);
+        }
+    });
+}
+
+// Initialize URLs array on page load and add event listeners to sidebar checkboxes
+document.addEventListener('DOMContentLoaded', () => {
+    var checkboxes = document.querySelectorAll('#sidePanel .scale-checkbox');
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('click', updateSelectedUrls);
+    });
+
+    updateSelectedUrls(); // Initial update
+});
+
+
+
+// CARD EXTRACT MECHANICS
 let usedLines = []; // Array to store used lines
 
 document.getElementById('extractScaleButton').addEventListener('click', function() {
-    fetch('https://raw.githubusercontent.com/nicoloddo/nicoloddo.github.io/main/PlayTelepatia/scales/ita/default.txt')
-    .then(response => response.text())
-    .then(data => {
-        const lines = data.split('\n');
+    if (urls.length === 0) {
+        document.getElementById('left-text').textContent = "Seleziona almeno un mazzo.";
+        document.getElementById('right-text').textContent = "Il tasto e' in alto a destra."
+        return;
+    }
+
+    Promise.all(urls.map(url => fetch(url).then(response => response.text())))
+    .then(texts => {
+        const lines = texts.reduce((lines, text) => lines.concat(text.split('\n')), []);
         let randomLine;
         let attempts = 0;
 
@@ -77,10 +116,12 @@ document.getElementById('extractScaleButton').addEventListener('click', function
             document.getElementById('right-text').textContent = rightWriting;
             usedLines.push(randomLine); // Add the used line to the array
         } else {
+            document.getElementById('left-text').textContent = "Non ci sono carte nuove.";
+            document.getElementById('right-text').textContent = "Ricarica la pagina."
             console.log("All lines have been used.");
         }
     })
     .catch(error => {
-        console.error('Error fetching the scales.txt file:', error);
+        console.error('Error fetching scale files:', error);
     });
 });

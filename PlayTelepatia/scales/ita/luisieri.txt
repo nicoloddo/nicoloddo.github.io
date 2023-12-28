@@ -1,6 +1,6 @@
 Sano:Pazzo
 Trash:Sofisticato
-Boomer:GenZ
+Boomer:Gen-Z
 Cittadino:Bidduncolo
 Intuscio:Burro
 Complotto:Teoria Provata
