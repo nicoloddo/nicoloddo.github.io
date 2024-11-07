@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>PORTAMENTO</title>
+  <link rel="icon" type="image/png" href="../Logos/icon.png">
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #231F20;
+    }
+    #unity-canvas {
+      width: 100%;
+      height: 100%;
+    }
+    /* Additional Styles for Loading Bar */
+    #unity-loading-bar {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1; /* Place it above the canvas */
+    }
+    #loading-title {
+      color: white;  /* Text color */
+      font-size: 24px;  /* Font size */
+      margin-bottom: 20px;  /* Space between title and progress bar */
+    }
+    #unity-progress-bar-empty {
+      width: 50%;
+      background-color: #ccc;
+    }
+    #unity-progress-bar-full {
+      width: 0;
+      height: 20px;
+      background: lime;
+      transition: width .2s linear; /* Optional for smoother transition */
+    }
+  </style>
+</head>
+<body>
+  <button id="close-pdf" style="position: fixed; top: 3%; right: 10%; display: none; font-size: 24px; padding: 20px 40px; background-color: red; color: white;">Close PDF</button>
+
+  <iframe id="pdf-frame" src="./information_sheet.pdf" width="80%" height="80%" style="border: none; position: fixed; top: 10%; left: 10%; display: none;"></iframe>
+  
+  <!-- Loading Bar Div -->
+  <div id="unity-loading-bar">
+    <p id="loading-title">Hi! The experience is loading...</p>
+    <div id="unity-progress-bar-empty">
+      <div id="unity-progress-bar-full"></div>
+    </div>
+  </div>
+  
+  <canvas id="unity-canvas"></canvas>
+
+  <script src="../JS/pleaserotate.min.js"></script>
+  <script src="Build/build.loader.js"></script>
+
+  <script>
+    var progressBarFull = document.getElementById("unity-progress-bar-full");
+    var loadingBar = document.getElementById("unity-loading-bar");
+
+    createUnityInstance(document.querySelector("#unity-canvas"), {
+      dataUrl: "Build/build.data",
+      frameworkUrl: "Build/build.framework.js",
+      codeUrl: "Build/build.wasm",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "nicoloddo",
+      productName: "Portamento",
+      productVersion: "0.71",
+    }, (progress) => {
+      // Update the progress bar
+      progressBarFull.style.width = 100 * progress + "%";
+    }).then((unityInstance) => {
+      // Hide the loading bar when Unity finishes loading
+      loadingBar.style.display = "none";
+    }).catch((message) => {
+      alert(message);
+    });
+  </script>
+
+</body>
+</html>
