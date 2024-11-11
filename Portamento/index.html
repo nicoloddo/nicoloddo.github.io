@@ -13,7 +13,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #231F20;
+      background: #1f1f1f;
     }
     #unity-canvas {
       width: 100%;
@@ -24,10 +24,11 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.9);
+      background: #1f1f1f;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-end;
+      padding-bottom: 10%;
       align-items: center;
       z-index: 1; /* Place it above the canvas */
     }
@@ -49,42 +50,116 @@
     /* Add these new styles */
     #info-frame {
       position: fixed;
-      top: 50%;
+      top: 40%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 1);
       color: white;
-      padding: 20px;
+      padding: 3vh;
       border-radius: 10px;
       text-align: center;
       z-index: 2;
+      font-family: Arial, sans-serif;
+      width: auto;  /* Changed from fixed width to auto */
+      min-width: min(80vw, 400px);  /* Minimum width */
+      max-width: 90vw;  /* Maximum width to prevent overflow */
     }
+
+    #info-frame h2 {
+      font-size: min(4vw, 32px);
+      margin-bottom: 2vh;
+    }
+
+    #info-frame p {
+      font-size: min(2.5vw, 20px);
+      line-height: 1.5;
+      margin: 1.5vh 0;
+    }
+
+    #info-frame ul {
+      font-size: min(2.5vw, 20px);
+      line-height: 1.5;
+    }
+
     #close-info {
       background-color: #ff4444;
       color: white;
-      padding: 10px 20px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      margin-top: 15px;
+      font-size: min(2.5vw, 20px);
+      padding: min(1.5vh, 12px) min(3vh, 30px);
+      margin-top: 2.5vh;
+    }
+
+    /* Animation for fade-in effect */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    #info-frame > * {
+        opacity: 0;  /* Start hidden */
+    }
+
+    #info-frame > *.show {
+        animation: fadeIn 0.5s ease-out forwards;
+    }
+
+    #close-info {
+        opacity: 0;
+    }
+
+    .animation-group {
+      display: contents;  /* This makes the div behave like it doesn't exist in terms of layout */
+    }
+
+    .animation-group > * {
+      opacity: 0;
+    }
+
+    .animation-group.show > * {
+      animation: fadeIn 0.5s ease-out forwards;
     }
   </style>
 </head>
 <body>
   <!-- Info frame -->
   <div id="info-frame">
-    <h2>Welcome to Portamento Demo!</h2>
-    <p>👋 You're about to try an early demo version of Portamento, a new way to explore music!</p>
-    <p>🎵 Portamento lets you discover music by navigating through different song qualities like:</p>
-    <ul style="text-align: left; margin: 10px 0;">
-      <li>How danceable they are</li>
-      <li>Their energy level</li>
-      <li>Their emotional mood</li>
-    </ul>
-    <p>🎯 Similar songs are grouped together in clusters. You can click on these groups to dive deeper and explore more specific collections of music!</p>
-    <p style="color: #ffdd00;">⚠️ Important: This demo uses cloud computing which I pay for. Please explore responsibly!</p>
-    <p>Want to learn more? Check out the full project on <a href="https://github.com/nicoloddo/PORTAMENTO" style="color: #00ff00;">GitHub</a>!</p>
-    <button id="close-info">Got it!</button>
+    <div class="animation-group" data-delay="0">
+      <h2>Welcome to Portamento Demo!</h2>
+      <p>👋 You're about to try an early demo version of Portamento, a new way to explore music!</p>
+    </div>
+    <div class="animation-group" data-delay="2000">
+      <p>🎵 Portamento lets you discover music by navigating through different song qualities like:</p>
+      <ul style="text-align: left; margin: 10px 0;">
+        <li>How danceable they are 💃 (danceability)</li>
+        <li>Their energy level ⚡ (energy)</li>
+        <li>Their emotional mood 😊 (valence)</li>
+      </ul>
+    </div>
+    <div class="animation-group" data-delay="7000">
+      <p>🎯 Similar songs are grouped together in hierarchical universes<br>
+      thanks to our Machine Learning algorithm.<br>
+      </p>
+    </div>
+    <div class="animation-group" data-delay="10000">
+      <p>🌀 You can enter these universes through special portals that you will find in the experience,
+        <br>diving deeper and exploring more and more specific collections of music!</p>
+    </div>
+    <div class="animation-group" data-delay="15000">
+      <p style="color: #ffdd00;">⚠️ Important: This demo uses cloud computing (on AWS) which I pay for. Please explore responsibly!</p>
+    </div>
+    <div class="animation-group" data-delay="17000">
+      <p>🎵 The play buttons are powered by Spotify, install the app to enjoy the full experience!
+        <br>Don't have Spotify? No worries. You'll be redirected to choose your preferred music platform 🎧</p>
+    </div>
+    <div class="animation-group" data-delay="17000">
+      <p>Want to learn more? Check out the full project on <a href="https://github.com/nicoloddo/PORTAMENTO" style="color: #00ff00;">GitHub</a>!</p>
+    </div>
+    <div class="animation-group" data-delay="0">
+      <button id="close-info">Got it!</button>
+    </div>
   </div>
 
   <!-- Loading Bar Div -->
@@ -101,8 +176,27 @@
   <script src="Build/Portamento.loader.js"></script>
 
   <script>
-    document.getElementById("close-info").addEventListener("click", function() {
-      document.getElementById("info-frame").style.display = 'none';
+    document.addEventListener('DOMContentLoaded', function() {
+        const infoFrame = document.getElementById('info-frame');
+        const groups = infoFrame.getElementsByClassName('animation-group');
+
+        // Function to show group with animation
+        function showGroup(group) {
+            const delay = parseInt(group.dataset.delay) || 0;
+            setTimeout(() => {
+                group.classList.add('show');
+            }, delay);
+        }
+
+        // Animate each group with its custom delay
+        Array.from(groups).forEach(group => {
+            showGroup(group);
+        });
+
+        // Add click event listener for close button
+        document.getElementById("close-info").addEventListener("click", function() {
+            document.getElementById("info-frame").style.display = 'none';
+        });
     });
   </script>
   <script>
