@@ -63,6 +63,14 @@
       width: auto;  /* Changed from fixed width to auto */
       min-width: min(80vw, 400px);  /* Minimum width */
       max-width: 90vw;  /* Maximum width to prevent overflow */
+      max-height: 80vh;  /* Maximum height of 80% of viewport height */
+      overflow-y: auto;  /* Enable vertical scrolling */
+      /* Hide scrollbar for webkit browsers */
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      /* Hide scrollbar for Firefox */
+      scrollbar-width: none;
     }
 
     #info-frame h2 {
