@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Missione Speciale: Operazione 60°</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #fbbf24;
+            --accent: #dc2626;
+            --tennis-green: #228b22;
+            --mystery-blue: #4f46e5;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: white;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(251, 191, 36, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(30, 58, 138, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            animation: backgroundShift 20s ease-in-out infinite;
+        }
+        
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .step {
+            background: rgba(15, 23, 42, 0.95);
+            border: 2px solid var(--secondary);
+            border-radius: 25px;
+            padding: 35px;
+            margin: 25px auto;
+            max-width: 900px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+            display: none;
+            animation: slideIn 0.8s ease-out;
+            position: relative;
+        }
+        
+        .step::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--secondary), var(--mystery-blue), var(--accent));
+            border-radius: 25px;
+            z-index: -1;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(50px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        .active { display: block; }
+        
+        h1, h2 { 
+            color: var(--secondary); 
+            text-align: center; 
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            margin-bottom: 25px;
+            font-size: 2.2em;
+        }
+        
+        h2 {
+            font-size: 1.8em;
+        }
+        
+        button {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            padding: 18px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 10px;
+            width: calc(100% - 20px);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            /* AGGIUNTO: Supporto touch */
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            touch-action: manipulation;
+            z-index: 1;
+        }
+        
+        button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        button:hover::before {
+            left: 100%;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+        
+        button:active { 
+            transform: scale(0.97); 
+        }
+        
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--secondary), var(--tennis-green), var(--mystery-blue));
+            transition: width 0.8s ease;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(251, 191, 36, 0.5);
+        }
+        
+        /* Navigation Arrows */
+        .navigation-arrows {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            gap: 20px;
+            z-index: 1000;
+        }
+        
+        .nav-arrow {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* AGGIUNTO: Supporto touch */
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+        
+        .nav-arrow:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+        
+        .nav-arrow:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: scale(0.9);
+        }
+        
+        .nav-arrow.prev {
+            background: linear-gradient(45deg, var(--mystery-blue), var(--secondary));
+        }
+        
+        .nav-arrow.next {
+            background: linear-gradient(45deg, var(--tennis-green), var(--secondary));
+        }
+        
+        .mystery-image {
+            width: 100%;
+            height: 300px;
+            margin: 25px auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            border: 3px solid var(--secondary);
+            background: linear-gradient(45deg, #1e293b, #334155);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .mystery-image::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1622669253059-e345500cf0e9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat;
+            opacity: 0;
+            transition: all 1.2s ease;
+            filter: blur(50px) brightness(0.1) contrast(0.2);
+        }
+        
+        .mystery-image[data-reveal="1"]::before { opacity: 0.1; filter: blur(45px) brightness(0.15) contrast(0.25); }
+        .mystery-image[data-reveal="2"]::before { opacity: 0.2; filter: blur(40px) brightness(0.2) contrast(0.3); }
+        .mystery-image[data-reveal="3"]::before { opacity: 0.3; filter: blur(35px) brightness(0.25) contrast(0.35); }
+        .mystery-image[data-reveal="4"]::before { opacity: 0.4; filter: blur(30px) brightness(0.3) contrast(0.4); }
+        .mystery-image[data-reveal="5"]::before { opacity: 0.5; filter: blur(25px) brightness(0.4) contrast(0.5); }
+        .mystery-image[data-reveal="6"]::before { opacity: 0.6; filter: blur(20px) brightness(0.5) contrast(0.6); }
+        .mystery-image[data-reveal="7"]::before { opacity: 0.7; filter: blur(15px) brightness(0.6) contrast(0.7); }
+        .mystery-image[data-reveal="8"]::before { opacity: 0.8; filter: blur(10px) brightness(0.7) contrast(0.8); }
+        .mystery-image[data-reveal="9"]::before { opacity: 1; filter: blur(0px) brightness(1) contrast(1.2); }
+        
+        /* Memory Game */
+        .memory-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            max-width: 400px;
+            margin: 20px auto;
+            background: rgba(79, 70, 229, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+        }
+        
+        .memory-card {
+            aspect-ratio: 1;
+            background: linear-gradient(45deg, var(--mystery-blue), var(--secondary));
+            border-radius: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            transition: all 0.6s ease;
+            transform-style: preserve-3d;
+            position: relative;
+            /* AGGIUNTO: Supporto touch */
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            z-index: 1;
+        }
+        
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .memory-card .front,
+        .memory-card .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+        }
+        
+        .memory-card .back {
+            transform: rotateY(180deg);
+            background: linear-gradient(45deg, var(--tennis-green), #32cd32);
+        }
+        
+        /* Anagram Game */
+        .anagram-container {
+            background: rgba(220, 38, 38, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .anagram-letters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .anagram-letter {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--accent), #b91c1c);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            /* AGGIUNTO: Supporto touch */
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            z-index: 1;
+        }
+        
+        .anagram-letter:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.5);
+        }
+        
+        .anagram-letter.used {
+            opacity: 0.3;
+            cursor: default;
+        }
+        
+        /* Math Quiz Game */
+        .math-container {
+            background: rgba(34, 139, 34, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .math-question {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .math-clue {
+            background: rgba(255,255,255,0.1);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            font-size: 1em;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        /* Tennis Rules Game */
+        .tennis-container {
+            background: rgba(79, 70, 229, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .tennis-question {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        .question-counter {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: var(--accent);
+        }
+        
+        /* Enhanced Input Styles */
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 18px;
+            border: 3px solid var(--secondary);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.2em;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: var(--mystery-blue);
+            box-shadow: 0 0 20px rgba(79, 70, 229, 0.5);
+            transform: scale(1.02);
+        }
+        
+        input[type="text"]::placeholder, input[type="number"]::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Summary Section */
+        .summary-container {
+            background: rgba(79, 70, 229, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid var(--secondary);
+        }
+        
+        .answer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        .answer-label {
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .answer-value {
+            color: white;
+            font-size: 1.1em;
+            background: var(--tennis-green);
+            padding: 5px 15px;
+            border-radius: 8px;
+        }
+        
+        /* Celebration Enhanced */
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            animation: celebrationFade 0.5s ease;
+        }
+        
+        .celebration-content {
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--mystery-blue));
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            animation: celebrationBounce 0.8s ease;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        @keyframes celebrationBounce {
+            0% { transform: scale(0.5) rotate(-5deg); }
+            50% { transform: scale(1.1) rotate(2deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        
+        .ticket-details {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px solid var(--secondary);
+        }
+        
+        .ticket-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 1.1em;
+        }
+        
+        .ticket-label {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        /* Confetti Animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--secondary);
+            animation: confettiFall 3s linear infinite;
+        }
+        
+        @keyframes confettiFall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div id="progress-bar"></div>
+
+    <!-- Navigation Arrows -->
+    <div class="navigation-arrows" id="navigation">
+        <button class="nav-arrow prev" id="prevBtn" onclick="goToPreviousStep()" disabled>
+            ◀
+        </button>
+        <button class="nav-arrow next" id="nextBtn" onclick="goToNextStep()" disabled>
+            ▶
+        </button>
+    </div>
+
+    <!-- Step 1 - Introduzione -->
+    <div class="step active" id="step1">
+        <h1>🎭 Missione Speciale: Operazione Sorpresa</h1>
+        <div style="text-align: center; margin: 30px 0;">
+            <div style="font-size: 4em; margin: 20px 0;">🎯</div>
+            <p style="font-size: 1.3em; line-height: 1.8;">
+                Carissima Mamma,<br>
+                Una missione segreta ti aspetta per scoprire la tua sorpresa del 60° compleanno!<br>
+                Dovrai superare 6 prove misteriose per svelare il regalo...<br>
+            </p>
+        </div>
+        <button onclick="startGame()">🚀 Inizia l'Avventura Misteriosa!</button>
+        <div class="mystery-image" data-reveal="0" id="mystery-reveal"></div>
+        <p style="text-align: center; font-size: 0.9em; color: rgba(255,255,255,0.6); margin-top: 15px;">
+            💡 Suggerimento: Ogni prova superata rivelerà un pezzo del puzzle...
+        </p>
+    </div>
+
+    <!-- Step 2 - Memory Game -->
+    <div class="step" id="step2">
+        <h2>🧠 Capitolo 1: Il Gioco della Memoria</h2>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <p>Trova tutte le coppie di simboli identici!</p>
+        </div>
+        <div class="memory-container" id="memory-game">
+            <!-- Generato dinamicamente -->
+        </div>
+        <div id="memory-status" style="text-align: center; margin-top: 20px; font-size: 1.1em;">
+            Coppie trovate: 0/6
+        </div>
+        <div class="mystery-image" data-reveal="1" id="mystery-reveal"></div>
+    </div>
+
+    <!-- Step 3 - Anagram Game -->
+    <div class="step" id="step3">
+        <h2>🔤 Capitolo 2: L'Anagramma Misterioso</h2>
+        <div class="anagram-container">
+            <p style="text-align: center; margin-bottom: 20px;">
+                Riordina le lettere per formare una parola di 10 lettere:
+            </p>
+            <div class="anagram-letters" id="anagram-letters">
+                <!-- Generato dinamicamente -->
+            </div>
+            <input type="text" id="anagram-input" placeholder="Scrivi la parola qui..." maxlength="10">
+            <button onclick="checkAnagram()">🔍 Verifica Parola</button>
+        </div>
+        <div class="mystery-image" data-reveal="2" id="mystery-reveal"></div>
+    </div>
+
+    <!-- Step 4 - Math Quiz Game -->
+    <div class="step" id="step4">
+        <h2>🧮 Capitolo 3: Calcolo Matematico Complesso</h2>
+        <div class="math-container">
+            <div class="math-question">
+                Trova tutti i numeri nascosti e risolvi il calcolo finale:
+            </div>
+            <div class="math-clue">
+                🎂 <strong>A:</strong> L'età che compi quest'anno
+            </div>
+            <div class="math-clue">
+                🎾 <strong>B:</strong> Il numero massimo di set in uno Slam maschile
+            </div>
+            <div class="math-clue">
+                📅 <strong>C:</strong> Il giorno del tuo compleanno
+            </div>
+            <div class="math-clue">
+                🏆 <strong>D:</strong> Il numero di Grand Slam in un anno
+            </div>
+            <div class="math-clue">
+                🎯 <strong>E:</strong> Punti per vincere un tie-break normale
+            </div>
+            <div style="font-size: 1.3em; text-align: center; margin: 20px 0; color: var(--accent);">
+                <strong>CALCOLO FINALE:</strong><br>
+                (A + C) × B + D + E = ?
+            </div>
+            <input type="number" id="math-input" placeholder="Inserisci il risultato">
+            <button onclick="checkMathAnswer()">🧮 Verifica Calcolo</button>
+        </div>
+        <div class="mystery-image" data-reveal="3" id="mystery-reveal"></div>
+    </div>
+
+    <!-- Step 5 - Tennis Rules Game -->
+    <div class="step" id="step5">
+        <h2>🎾 Capitolo 4: Regole Avanzate del Tennis</h2>
+        <div class="tennis-container">
+            <div class="question-counter" id="tennis-counter">Domanda 1 di 5</div>
+            <div class="tennis-question" id="tennis-question">
+                Nel super tie-break del quinto set (introdotto dal 2022), a quanti punti si vince?
+            </div>
+            <div id="tennis-buttons">
+                <button onclick="checkTennisAnswer(0)">10 punti</button>
+                <button onclick="checkTennisAnswer(1)">7 punti</button>
+                <button onclick="checkTennisAnswer(2)">15 punti</button>
+                <button onclick="checkTennisAnswer(3)">12 punti</button>
+            </div>
+        </div>
+        <div class="mystery-image" data-reveal="4" id="mystery-reveal"></div>
+    </div>
+
+    <!-- Step 6 - Pattern Recognition -->
+    <div class="step" id="step6">
+        <h2>🎨 Capitolo 5: Sequenza Matematica Avanzata</h2>
+        <div style="background: rgba(34, 139, 34, 0.1); border-radius: 15px; padding: 25px; margin: 20px 0;">
+            <p style="text-align: center; margin-bottom: 20px;">
+                Trova il numero mancante in questa sequenza complessa:
+            </p>
+            <div style="font-size: 1.6em; text-align: center; margin: 20px 0; color: var(--secondary);">
+                3, 6, 12, ?
+            </div>
+            <div style="font-size: 1em; text-align: center; margin: 15px 0; color: rgba(255,255,255,0.8);">
+                Suggerimento: Ogni numero è il precedente moltiplicato per un fattore crescente
+            </div>
+            <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                <button onclick="checkPattern(24)" style="max-width: 100px;">24</button>
+                <button onclick="checkPattern(18)" style="max-width: 100px;">18</button>
+                <button onclick="checkPattern(15)" style="max-width: 100px;">15</button>
+                <button onclick="checkPattern(21)" style="max-width: 100px;">21</button>
+            </div>
+        </div>
+        <div class="mystery-image" data-reveal="5" id="mystery-reveal"></div>
+    </div>
+
+    <!-- Step 7 - Word Association -->
+    <div class="step" id="step7">
+        <h2>💭 Capitolo 6: Associazione di Parole</h2>
+        <div style="background: rgba(220, 38, 38, 0.1); border-radius: 15px; padding: 25px; margin: 20px 0;">
+            <p style="text-align: center; margin-bottom: 20px;">
+                Quale parola collega tutti questi elementi?
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
+                <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center;">
+                    🏆 Competizione
+                </div>
+                <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center;">
+                    🇮🇹 Italia
+                </div>
+                <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center;">
+                    🏟️ Arena
+                </div>
+                <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center;">
+                    🏅 Finale
+                </div>
+            </div>
+            <input type="text" id="association-input" placeholder="Quale sport?">
+            <button onclick="checkAssociation()">🎯 Verifica Associazione</button>
+        </div>
+        <div class="mystery-image" data-reveal="6" id="mystery-reveal"></div>
+    </div>
+
+    <!-- Step 8 - Final Riddle -->
+    <div class="step" id="step8">
+        <h2>🎪 Capitolo 7: L'Indovinello Finale</h2>
+        <div style="background: linear-gradient(135deg, rgba(30, 58, 138, 0.2), rgba(79, 70, 229, 0.2)); border-radius: 20px; padding: 30px; margin: 20px 0; border: 2px solid var(--mystery-blue);">
+            <div style="font-size: 1.3em; text-align: center; margin: 20px 0; color: var(--secondary);">
+                Risolvi questo indovinello finale:
+            </div>
+            <div style="font-size: 1.2em; text-align: center; margin: 20px 0; font-style: italic; color: white; line-height: 1.8;">
+                "In una città dove le torri svettano al cielo,<br>
+                dove la mortadella è un vero gioiello,<br>
+                a novembre si svolgerà una sfida suprema,<br>
+                otto nazioni per un titolo che è il tema.<br>
+                Due giorni speciali, sabato e domenica,<br>
+                per una coppa che l'Italia rivendica."
+            </div>
+            <input type="text" id="final-riddle-input" placeholder="Che evento è?">
+            <button onclick="checkFinalRiddle()">🏆 Svela il Grande Mistero</button>
+        </div>
+        <div class="mystery-image" data-reveal="7" id="mystery-reveal"></div>
+    </div>
+
+    <!-- Summary Step -->
+    <div class="step" id="summary">
+        <h2>📋 Riepilogo delle Tue Risposte</h2>
+        <div class="summary-container">
+            <p style="text-align: center; font-size: 1.2em; margin-bottom: 25px;">
+                Ecco tutte le risposte che hai dato durante la missione:
+            </p>
+            <div class="answer-row">
+                <span class="answer-label">🧠 Memory Game:</span>
+                <span class="answer-value" id="summary-memory">6/6 Coppie Trovate</span>
+            </div>
+            <div class="answer-row">
+                <span class="answer-label">🔤 Anagramma:</span>
+                <span class="answer-value" id="summary-anagram">MORTADELLA</span>
+            </div>
+            <div class="answer-row">
+                <span class="answer-label">🧮 Calcolo Matematico:</span>
+                <span class="answer-value" id="summary-math">381</span>
+            </div>
+            <div class="answer-row">
+                <span class="answer-label">🎾 Regole Tennis:</span>
+                <span class="answer-value" id="summary-tennis">5/5 Corrette</span>
+            </div>
+            <div class="answer-row">
+                <span class="answer-label">🎨 Sequenza:</span>
+                <span class="answer-value" id="summary-pattern">24</span>
+            </div>
+            <div class="answer-row">
+                <span class="answer-label">💭 Associazione:</span>
+                <span class="answer-value" id="summary-association">TENNIS</span>
+            </div>
+            <div class="answer-row">
+                <span class="answer-label">🎪 Indovinello:</span>
+                <span class="answer-value" id="summary-riddle">COPPA DAVIS</span>
+            </div>
+        </div>
+        <button onclick="showStep(10)" style="font-size: 1.3em; padding: 20px 40px;">
+            🎁 SCOPRI IL TUO REGALO!
+        </button>
+        <div class="mystery-image" data-reveal="8" id="mystery-reveal"></div>
+    </div>
+
+    <!-- Finale -->
+    <div class="step" id="finale">
+        <h1>🎉 MISSIONE COMPLETATA!</h1>
+        <div style="text-align: center; margin: 30px 0;">
+            <div class="mystery-image" data-reveal="9" id="mystery-reveal"></div>
+            <div style="background: linear-gradient(45deg, var(--primary), var(--accent), var(--mystery-blue)); padding: 40px; border-radius: 25px; margin: 25px 0; border: 3px solid var(--secondary);">
+                <h2 style="color: white; margin: 0 0 20px 0; font-size: 2.5em;">🏆 LA TUA SORPRESA DEI 60 ANNI! 🏆</h2>
+                <h3 style="color: var(--secondary); margin: 15px 0; font-size: 1.8em;">Coppa Davis Finals 2025</h3>
+                <p style="font-size: 1.4em; margin: 20px 0; font-weight: 600;">📅 22-23 Novembre 2025 | 📍 Bologna</p>
+                
+                <div class="ticket-details">
+                    <h4 style="color: var(--secondary); margin-bottom: 15px;">✈️ DETTAGLI DEL VIAGGIO</h4>
+                    <div class="ticket-row">
+                        <span class="ticket-label">🏠 Alloggio:</span>
+                        <span>Casa esclusiva sotto le Due Torri</span>
+                    </div>
+                    <div class="ticket-row">
+                        <span class="ticket-label">✈️ Trasporto:</span>
+                        <span>Volo andata e ritorno incluso</span>
+                    </div>
+                </div>
+
+                <div class="ticket-details">
+                    <h4 style="color: var(--secondary); margin-bottom: 15px;">🎾 BIGLIETTI EVENTI</h4>
+                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin: 10px 0;">
+                        <div class="ticket-row">
+                            <span class="ticket-label">📅 Semifinale:</span>
+                            <span>Venerdì 22 Novembre 2025 - ore 12:00</span>
+                        </div>
+                        <div class="ticket-row">
+                            <span class="ticket-label">🏟️ Settore:</span>
+                            <span>Gradinata Centrale</span>
+                        </div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin: 10px 0;">
+                        <div class="ticket-row">
+                            <span class="ticket-label">📅 FINALE:</span>
+                            <span>Domenica 23 Novembre 2025 - ore 15:00</span>
+                        </div>
+                        <div class="ticket-row">
+                            <span class="ticket-label">🏟️ Settore:</span>
+                            <span>Gradinata Centrale</span>
+                        </div>
+                        <div class="ticket-row">
+                            <span class="ticket-label">🏟️ Venue:</span>
+                            <span>SuperTennis Arena - BolognaFiere</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="showCelebration()" style="margin-top: 25px; font-size: 1.3em; padding: 20px 40px;">
+                    🎊 SCOPRI TUTTI I DETTAGLI!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="celebration" id="celebration">
+        <div class="celebration-content">
+            <h1 style="font-size: 2.5em; margin-bottom: 25px;">🎉 BUON 60° COMPLEANNO! 🎉</h1>
+            <p style="font-size: 1.4em; margin: 25px 0; line-height: 1.6;">
+                Preparati per un weekend indimenticabile a Bologna!<br>
+                Assisteremo insieme alle Finals di Coppa Davis 2025,<br>
+                dove l'Italia difenderà il titolo di campione del mondo!
+            </p>
+            <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; margin: 25px 0;">
+                <p style="font-size: 1.2em; color: var(--secondary); margin: 10px 0;">
+                    ✈️ Volo: Dettagli da confermare
+                </p>
+                <p style="font-size: 1.2em; color: var(--secondary); margin: 10px 0;">
+                    🏠 Casa esclusiva nel centro storico
+                </p>
+                <p style="font-size: 1.2em; color: var(--secondary); margin: 10px 0;">
+                    👗 Abbigliamento: Elegante/Sportivo chic
+                </p>
+                <p style="font-size: 1.2em; color: var(--secondary); margin: 10px 0;">
+                    🏆 Evento: Semifinale + Finale Davis Cup
+                </p>
+            </div>
+            <button onclick="closeCelebration()" style="font-size: 1.2em; padding: 18px 35px;">
+                ❤️ Grazie, non vedo l'ora!
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let memoryCards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let tennisQuestionIndex = 0;
+        let tennisCorrectAnswers = 0;
+        let completedSteps = [1];
+        let maxReachedStep = 1;
+        let userAnswers = {
+            memory: "6/6 Coppie Trovate",
+            anagram: "",
+            math: "",
+            tennis: "0/5 Corrette",
+            pattern: "",
+            association: "",
+            riddle: ""
+        };
+
+        // Simboli sportivi per memory game
+        const symbols = ['⚽', '🏀', '🎾', '🏐', '🏟️', '🏆'];
+        const anagramWord = 'MORTADELLA';
+        const anagramLetters = ['M', 'O', 'R', 'T', 'A', 'D', 'E', 'L', 'L', 'A'];
+
+        // Domande tennis
+        const tennisQuestions = [
+            {
+                question: "Nel super tie-break del quinto set (introdotto dal 2022), a quanti punti si vince?",
+                answers: ["10 punti", "7 punti", "15 punti", "12 punti"],
+                correct: 0
+            },
+            {
+                question: "Qual è la durata massima del warm-up prima di una partita ufficiale?",
+                answers: ["3 minuti", "5 minuti", "7 minuti", "10 minuti"],
+                correct: 1
+            },
+            {
+                question: "Nel doppio, quando si può cambiare l'ordine di servizio?",
+                answers: ["Mai durante il set", "Solo all'inizio di ogni set", "Ogni 4 game", "Solo nel tie-break"],
+                correct: 1
+            },
+            {
+                question: "Quanti challenge ha a disposizione ogni giocatore per set?",
+                answers: ["2", "3", "4", "5"],
+                correct: 1
+            },
+            {
+                question: "Qual è il tempo massimo tra i punti in una partita ufficiale?",
+                answers: ["20 secondi", "25 secondi", "30 secondi", "35 secondi"],
+                correct: 1
+            }
+        ];
+
+        // SOLUZIONE TOUCH: Usa ontouchstart invece di addEventListener
+        function makeTouchable(element, callback) {
+            // Rimuovi tutti gli event listener esistenti
+            element.onclick = null;
+            
+            // Aggiungi sia click che touch
+            element.onclick = callback;
+            element.ontouchstart = function(e) {
+                e.preventDefault();
+                callback();
+            };
+        }
+
+        function startGame() {
+            showStep(2);
+            initMemoryGame();
+            createConfetti();
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.background = ['#fbbf24', '#dc2626', '#1e3a8a', '#228b22'][Math.floor(Math.random() * 4)];
+                    confetti.style.animationDelay = Math.random() * 3 + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 3000);
+                }, i * 100);
+            }
+        }
+
+        function showStep(step) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            
+            if (step <= 8) {
+                document.getElementById(`step${step}`).classList.add('active');
+            } else if (step === 9) {
+                document.getElementById('summary').classList.add('active');
+                updateSummary();
+            } else if (step === 10) {
+                document.getElementById('finale').classList.add('active');
+            }
+            
+            const progress = ((step - 1) / 9) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            
+            document.querySelectorAll('.mystery-image').forEach(img => {
+                if (step === 10) {
+                    img.setAttribute('data-reveal', 9);
+                } else {
+                    img.setAttribute('data-reveal', Math.min(step - 1, 8));
+                }
+            });
+            
+            currentStep = step;
+            
+            if (step > maxReachedStep) {
+                maxReachedStep = step;
+            }
+            
+            updateNavigationButtons();
+            
+            if (step === 3) {
+                setTimeout(() => {
+                    initAnagramGame();
+                }, 100);
+            }
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const navigation = document.getElementById('navigation');
+            
+            if (currentStep <= 1) {
+                prevBtn.disabled = true;
+                navigation.style.display = 'none';
+            } else {
+                prevBtn.disabled = false;
+                navigation.style.display = 'flex';
+            }
+            
+            if (currentStep >= maxReachedStep || currentStep >= 10) {
+                nextBtn.disabled = true;
+            } else {
+                nextBtn.disabled = false;
+            }
+        }
+
+        function goToPreviousStep() {
+            if (currentStep > 1) {
+                showStep(currentStep - 1);
+            }
+        }
+
+        function goToNextStep() {
+            if (currentStep < maxReachedStep && currentStep < 10) {
+                showStep(currentStep + 1);
+            }
+        }
+
+        function completeStep(step) {
+            if (!completedSteps.includes(step)) {
+                completedSteps.push(step);
+            }
+            if (step + 1 > maxReachedStep) {
+                maxReachedStep = step + 1;
+            }
+            updateNavigationButtons();
+        }
+
+        function updateSummary() {
+            document.getElementById('summary-memory').textContent = userAnswers.memory;
+            document.getElementById('summary-anagram').textContent = userAnswers.anagram || "MORTADELLA";
+            document.getElementById('summary-math').textContent = userAnswers.math || "381";
+            document.getElementById('summary-tennis').textContent = userAnswers.tennis;
+            document.getElementById('summary-pattern').textContent = userAnswers.pattern || "24";
+            document.getElementById('summary-association').textContent = userAnswers.association || "TENNIS";
+            document.getElementById('summary-riddle').textContent = userAnswers.riddle || "COPPA DAVIS";
+        }
+
+        function initMemoryGame() {
+            const container = document.getElementById('memory-game');
+            container.innerHTML = '';
+            
+            const gameSymbols = [...symbols, ...symbols];
+            gameSymbols.sort(() => Math.random() - 0.5);
+            
+            gameSymbols.forEach((symbol, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.symbol = symbol;
+                card.dataset.index = index;
+                
+                card.innerHTML = `
+                    <div class="front">❓</div>
+                    <div class="back">${symbol}</div>
+                `;
+                
+                // USA LA NUOVA FUNZIONE TOUCH
+                makeTouchable(card, () => flipCard(card));
+                
+                container.appendChild(card);
+            });
+        }
+
+        function flipCard(card) {
+            if (card.classList.contains('flipped') || flippedCards.length >= 2) return;
+            
+            card.classList.add('flipped');
+            flippedCards.push(card);
+            
+            if (flippedCards.length === 2) {
+                setTimeout(checkMatch, 1000);
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            
+            if (card1.dataset.symbol === card2.dataset.symbol) {
+                matchedPairs++;
+                document.getElementById('memory-status').textContent = `Coppie trovate: ${matchedPairs}/6`;
+                
+                if (matchedPairs === 6) {
+                    userAnswers.memory = "6/6 Coppie Trovate";
+                    completeStep(2);
+                    setTimeout(() => showStep(3), 1500);
+                }
+            } else {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+            }
+            
+            flippedCards = [];
+        }
+
+        function initAnagramGame() {
+            const container = document.getElementById('anagram-letters');
+            container.innerHTML = '';
+            
+            const shuffled = [...anagramLetters].sort(() => Math.random() - 0.5);
+            
+            shuffled.forEach(letter => {
+                const button = document.createElement('button');
+                button.className = 'anagram-letter';
+                button.textContent = letter;
+                
+                // USA LA NUOVA FUNZIONE TOUCH
+                makeTouchable(button, () => addToInput(letter, button));
+                
+                container.appendChild(button);
+            });
+        }
+
+        function addToInput(letter, button) {
+            if (button.classList.contains('used')) return;
+            
+            const input = document.getElementById('anagram-input');
+            input.value += letter;
+            button.classList.add('used');
+        }
+
+        function checkAnagram() {
+            const input = document.getElementById('anagram-input').value.toUpperCase();
+            
+            if (input === 'MORTADELLA') {
+                userAnswers.anagram = input;
+                completeStep(3);
+                showStep(4);
+            } else {
+                alert("❌ Parola sbagliata! Riprova...");
+                document.getElementById('anagram-input').value = '';
+                document.querySelectorAll('.anagram-letter').forEach(btn => {
+                    btn.classList.remove('used');
+                });
+            }
+        }
+
+        function checkMathAnswer() {
+            const expectedAnswer = 381;
+            const userAnswer = parseInt(document.getElementById('math-input').value);
+            
+            if (userAnswer === expectedAnswer) {
+                userAnswers.math = userAnswer.toString();
+                completeStep(4);
+                showStep(5);
+            } else {
+                alert("❌ Calcolo errato! Ricontrolla: A=60, B=5, C=14, D=4, E=7");
+            }
+        }
+
+        function checkTennisAnswer(answerIndex) {
+            const currentQuestion = tennisQuestions[tennisQuestionIndex];
+            
+            if (answerIndex === currentQuestion.correct) {
+                tennisCorrectAnswers++;
+                tennisQuestionIndex++;
+                
+                if (tennisQuestionIndex < tennisQuestions.length) {
+                    setTimeout(() => {
+                        document.getElementById('tennis-counter').textContent = `Domanda ${tennisQuestionIndex + 1} di 5`;
+                        document.getElementById('tennis-question').textContent = tennisQuestions[tennisQuestionIndex].question;
+                        
+                        const buttonsContainer = document.getElementById('tennis-buttons');
+                        buttonsContainer.innerHTML = '';
+                        
+                        tennisQuestions[tennisQuestionIndex].answers.forEach((answer, index) => {
+                            const button = document.createElement('button');
+                            button.textContent = answer;
+                            
+                            // USA LA NUOVA FUNZIONE TOUCH
+                            makeTouchable(button, () => checkTennisAnswer(index));
+                            
+                            buttonsContainer.appendChild(button);
+                        });
+                    }, 1000);
+                } else {
+                    if (tennisCorrectAnswers >= 4) {
+                        userAnswers.tennis = `${tennisCorrectAnswers}/5 Corrette`;
+                        completeStep(5);
+                        setTimeout(() => showStep(6), 1500);
+                    } else {
+                        alert("❌ Devi rispondere correttamente ad almeno 4 domande su 5!");
+                        tennisQuestionIndex = 0;
+                        tennisCorrectAnswers = 0;
+                        document.getElementById('tennis-counter').textContent = "Domanda 1 di 5";
+                        document.getElementById('tennis-question').textContent = tennisQuestions[0].question;
+                        
+                        const buttonsContainer = document.getElementById('tennis-buttons');
+                        buttonsContainer.innerHTML = '';
+                        tennisQuestions[0].answers.forEach((answer, index) => {
+                            const button = document.createElement('button');
+                            button.textContent = answer;
+                            makeTouchable(button, () => checkTennisAnswer(index));
+                            buttonsContainer.appendChild(button);
+                        });
+                    }
+                }
+            } else {
+                alert("❌ Risposta sbagliata! Riprova...");
+            }
+        }
+
+        function checkPattern(number) {
+            if (number === 24) {
+                userAnswers.pattern = number.toString();
+                completeStep(6);
+                showStep(7);
+            } else {
+                alert("❌ Numero sbagliato! La sequenza è: 3×2=6, 6×2=12, 12×2=24");
+            }
+        }
+
+        function checkAssociation() {
+            const answer = document.getElementById('association-input').value.toLowerCase();
+            
+            if (answer.includes('tennis')) {
+                userAnswers.association = answer.toUpperCase();
+                completeStep(7);
+                showStep(8);
+            } else {
+                alert("❌ Sport sbagliato! Pensa a uno sport con racchetta...");
+            }
+        }
+
+        function checkFinalRiddle() {
+            const answer = document.getElementById('final-riddle-input').value.toLowerCase();
+            
+            if (answer.includes('davis') || answer.includes('coppa davis')) {
+                userAnswers.riddle = answer.toUpperCase();
+                completeStep(8);
+                showStep(9);
+            } else {
+                alert("❌ Non è l'evento giusto! Rileggi l'indovinello...");
+            }
+        }
+
+        function showCelebration() {
+            document.getElementById('celebration').style.display = 'flex';
+            createConfetti();
+        }
+
+        function closeCelebration() {
+            document.getElementById('celebration').style.display = 'none';
+        }
+
+        // Navigazione con tastiera
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                goToPreviousStep();
+            } else if (event.key === 'ArrowRight') {
+                goToNextStep();
+            }
+        });
+
+        // APPLICA TOUCH SUPPORT AI PULSANTI ESISTENTI
+        document.addEventListener('DOMContentLoaded', function() {
+            // Applica touch a tutti i pulsanti esistenti
+            document.querySelectorAll('button').forEach(button => {
+                if (button.onclick) {
+                    const originalClick = button.onclick;
+                    button.ontouchstart = function(e) {
+                        e.preventDefault();
+                        originalClick();
+                    };
+                }
+            });
+        });
+    </script>
+</body>
+</html>
